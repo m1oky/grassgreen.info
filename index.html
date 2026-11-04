@@ -1,0 +1,1875 @@
+<!DOCTYPE html>
+<html lang="ru" data-lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GrassGreen (G&G) — Высокопроизводительный байткод-язык системного уровня</title>
+  <meta name="description" content="Официальный сайт и документация GrassGreen (G&G) v4.0. C++ синтаксис, собственная Direct-Threaded Stack VM, упаковка в Win32 PE .exe, JIT, Arena Allocator и Freestanding режим.">
+  <link rel="icon" type="image/svg+xml" href="assets/logo.svg">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <!-- ============================================================
+       Site Header
+       ============================================================ -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="#" class="header-brand">
+        <!-- Official G&G Vector Logo -->
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" aria-label="GrassGreen Logo">
+          <defs>
+            <linearGradient id="headerGgGrad" x1="0%" y1="100%" x2="100%" y2="0%">
+              <stop offset="0%" stop-color="#15803d"/>
+              <stop offset="100%" stop-color="#22c55e"/>
+            </linearGradient>
+          </defs>
+          <rect x="8" y="8" width="112" height="112" rx="28" fill="#0c0f0d" stroke="url(#headerGgGrad)" stroke-width="6"/>
+          <path d="M40 88 C40 52, 68 36, 88 28 C76 54, 72 72, 74 92" fill="none" stroke="url(#headerGgGrad)" stroke-width="10" stroke-linecap="round"/>
+          <path d="M36 92 C52 72, 72 64, 92 60" fill="none" stroke="#22c55e" stroke-width="8" stroke-linecap="round"/>
+          <circle cx="88" cy="28" r="6" fill="#4ade80"/>
+        </svg>
+        <div class="header-brand-text">
+          <span class="header-brand-name">GrassGreen</span>
+          <span class="header-brand-tag">G&amp;G v4.0</span>
+        </div>
+      </a>
+
+      <nav class="header-nav" id="headerNav">
+        <a href="#about">
+          <span data-i18n-ru>О языке</span>
+          <span data-i18n-en>About</span>
+        </a>
+        <a href="#libraries">
+          <span data-i18n-ru>Библиотеки</span>
+          <span data-i18n-en>Libraries</span>
+        </a>
+        <a href="#roadmap">
+          <span data-i18n-ru>Роадмап v4.0</span>
+          <span data-i18n-en>Roadmap v4.0</span>
+        </a>
+        <a href="#docs">
+          <span data-i18n-ru>Документация</span>
+          <span data-i18n-en>Docs</span>
+        </a>
+      </nav>
+
+      <div class="header-right">
+        <!-- Language Switcher -->
+        <div class="lang-switch" role="group" aria-label="Language Selector">
+          <button type="button" class="lang-btn active" data-lang="ru">RU</button>
+          <button type="button" class="lang-btn" data-lang="en">EN</button>
+        </div>
+
+        <!-- Sponsor / Donate Button -->
+        <a href="https://www.donationalerts.com/r/m1oky" target="_blank" rel="noopener noreferrer" class="btn-sponsor" aria-label="Support GrassGreen">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+          </svg>
+          <span data-i18n-ru>Спонсор</span>
+          <span data-i18n-en>Sponsor</span>
+        </a>
+
+        <!-- GitHub with Real Stars -->
+        <a href="https://github.com/m1oky/GrassGreen" target="_blank" rel="noopener noreferrer" class="btn-github" aria-label="GitHub Repository">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/>
+          </svg>
+          <span>GitHub</span>
+          <span class="github-stars">
+            <svg viewBox="0 0 24 24">
+              <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/>
+            </svg>
+            <span id="githubStarsCount">5</span>
+          </span>
+        </a>
+
+        <!-- Mobile hamburger -->
+        <button class="header-hamburger" id="headerHamburger" aria-label="Toggle Navigation" aria-expanded="false">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round">
+            <line x1="3" y1="6" x2="21" y2="6"/>
+            <line x1="3" y1="12" x2="21" y2="12"/>
+            <line x1="3" y1="18" x2="21" y2="18"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ============================================================
+       Hero Section
+       ============================================================ -->
+  <section class="hero" id="hero">
+    <div class="hero-glow-bg"></div>
+    <div class="container hero-content">
+      <div class="hero-pill">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
+        </svg>
+        <span data-i18n-ru>Ядро версии 4.0: The Evolution</span>
+        <span data-i18n-en>Core v4.0 Release: The Evolution</span>
+      </div>
+
+      <h1 data-i18n-ru>Высокопроизводительный байткод-язык системного уровня</h1>
+      <h1 data-i18n-en>High-Performance System-Level Bytecode Language</h1>
+
+      <p class="hero-sub">
+        <span>C++ синтаксис</span>
+        <span class="dot-sep">·</span>
+        <span data-i18n-ru>Собственная Stack VM</span>
+        <span data-i18n-en>Proprietary Stack VM</span>
+        <span class="dot-sep">·</span>
+        <span data-i18n-ru>Нативная сборка в Win32 PE .exe</span>
+        <span data-i18n-en>Native Win32 PE .exe Packing</span>
+      </p>
+
+      <div class="hero-actions">
+        <a href="https://github.com/m1oky/GrassGreen/releases" class="btn-primary" target="_blank" rel="noopener noreferrer">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+            <polyline points="7 10 12 15 17 10"/>
+            <line x1="12" y1="15" x2="12" y2="3"/>
+          </svg>
+          <span data-i18n-ru>Скачать компилятор grg (v4.0)</span>
+          <span data-i18n-en>Download grg Compiler (v4.0)</span>
+        </a>
+
+        <a href="#docs" class="btn-secondary">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
+            <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
+          </svg>
+          <span data-i18n-ru>Читать документацию</span>
+          <span data-i18n-en>Read Documentation</span>
+        </a>
+      </div>
+
+      <!-- Quick Launch Terminal Widget -->
+      <div class="terminal-widget">
+        <div class="terminal-modes" role="tablist" aria-label="Terminal Command Presets">
+          <button type="button" class="term-mode-btn active" data-cmd="grg main.grass">
+            <span data-i18n-ru>Запуск в VM</span>
+            <span data-i18n-en>Run in VM</span>
+          </button>
+          <button type="button" class="term-mode-btn" data-cmd="grg -emit-exe main.grass -o app.exe">
+            <span data-i18n-ru>Сборка .exe</span>
+            <span data-i18n-en>Build .exe</span>
+          </button>
+          <button type="button" class="term-mode-btn" data-cmd="setup.exe /silent">
+            <span data-i18n-ru>Установка</span>
+            <span data-i18n-en>Install</span>
+          </button>
+        </div>
+
+        <div class="terminal-bar">
+          <span class="terminal-prompt">$</span>
+          <code class="terminal-cmd" id="terminalCmdText">grg main.grass</code>
+          <button class="btn-copy-term" id="copyTermBtn" title="Копировать команду">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="9" y="9" width="13" height="13" rx="2" ry="2"/>
+              <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
+            </svg>
+            <span data-i18n-ru>Скопировать</span>
+            <span data-i18n-en>Copy</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       Interactive Code Showcase
+       ============================================================ -->
+  <section class="code-section" id="showcase">
+    <div class="container">
+      <div class="section-head">
+        <span class="section-tag">Interactive Code Showcase</span>
+        <h2 data-i18n-ru>Синтаксис нового поколения G&amp;G</h2>
+        <h2 data-i18n-en>Next-Generation G&amp;G Syntax</h2>
+        <p data-i18n-ru>Простота C++, прямой потоковый вывод `gout`, встроенная математика и нативные Win32 GUI компоненты без громоздких фреймворков.</p>
+        <p data-i18n-en>C++ elegance, direct `gout` stream I/O, built-in vector math, and native Win32 GUI engine without heavy external frameworks.</p>
+      </div>
+
+      <div class="code-window-frame">
+        <div class="code-window-top">
+          <div class="code-tabs-nav" role="tablist">
+            <button type="button" class="code-tab-btn active" data-tab="hello" role="tab">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                <polyline points="14 2 14 8 20 8"/>
+                <line x1="16" y1="13" x2="8" y2="13"/>
+                <line x1="16" y1="17" x2="8" y2="17"/>
+              </svg>
+              <span>hello.grass</span>
+            </button>
+            <button type="button" class="code-tab-btn" data-tab="math" role="tab">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="18" y1="20" x2="18" y2="10"/>
+                <line x1="12" y1="20" x2="12" y2="4"/>
+                <line x1="6" y1="20" x2="6" y2="14"/>
+              </svg>
+              <span>fast_math.grass</span>
+            </button>
+            <button type="button" class="code-tab-btn" data-tab="gui" role="tab">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+                <line x1="3" y1="9" x2="21" y2="9"/>
+                <line x1="9" y1="21" x2="9" y2="9"/>
+              </svg>
+              <span>gui_window.grass</span>
+            </button>
+          </div>
+
+          <div class="code-actions-top">
+            <button class="code-copy-btn" id="copyCodeBtn">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="9" y="9" width="13" height="13" rx="2" ry="2"/>
+                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
+              </svg>
+              <span data-i18n-ru>Скопировать код</span>
+              <span data-i18n-en>Copy Code</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="code-window-content">
+          <!-- Snippet 1: hello.grass -->
+          <div class="code-snippet-panel active" id="snippet-hello">
+            <pre data-i18n-ru><code><span class="tok-dir">!GrassGreen!</span>
+
+<span class="tok-com">// Быстрый старт: точка входа main() и потоковый вывод gout</span>
+<span class="tok-kw">int</span> <span class="tok-fn">main</span>() {
+    <span class="tok-kw">take</span> project = <span class="tok-str">"GrassGreen"</span>;
+    <span class="tok-kw">take</span> version = <span class="tok-num">4.0</span>;
+
+    <span class="tok-pipe">gout</span> <span class="tok-op">&lt;&lt;</span> <span class="tok-str">"Добро пожаловать в "</span> <span class="tok-op">&lt;&lt;</span> project <span class="tok-op">&lt;&lt;</span> <span class="tok-str">" v"</span> <span class="tok-op">&lt;&lt;</span> version <span class="tok-op">&lt;&lt;</span> <span class="tok-pipe">endl</span>;
+    <span class="tok-pipe">gout</span> <span class="tok-op">&lt;&lt;</span> <span class="tok-str">"Stack VM Direct-Threaded Dispatcher активен."</span> <span class="tok-op">&lt;&lt;</span> <span class="tok-pipe">endl</span>;
+
+    <span class="tok-kw">return</span> <span class="tok-num">0</span>;
+}</code></pre>
+            <pre data-i18n-en><code><span class="tok-dir">!GrassGreen!</span>
+
+<span class="tok-com">// Quick start: main() entry point and gout stream I/O</span>
+<span class="tok-kw">int</span> <span class="tok-fn">main</span>() {
+    <span class="tok-kw">take</span> project = <span class="tok-str">"GrassGreen"</span>;
+    <span class="tok-kw">take</span> version = <span class="tok-num">4.0</span>;
+
+    <span class="tok-pipe">gout</span> <span class="tok-op">&lt;&lt;</span> <span class="tok-str">"Welcome to "</span> <span class="tok-op">&lt;&lt;</span> project <span class="tok-op">&lt;&lt;</span> <span class="tok-str">" v"</span> <span class="tok-op">&lt;&lt;</span> version <span class="tok-op">&lt;&lt;</span> <span class="tok-pipe">endl</span>;
+    <span class="tok-pipe">gout</span> <span class="tok-op">&lt;&lt;</span> <span class="tok-str">"Stack VM Direct-Threaded Dispatcher is active."</span> <span class="tok-op">&lt;&lt;</span> <span class="tok-pipe">endl</span>;
+
+    <span class="tok-kw">return</span> <span class="tok-num">0</span>;
+}</code></pre>
+          </div>
+
+          <!-- Snippet 2: fast_math.grass -->
+          <div class="code-snippet-panel" id="snippet-math">
+            <pre data-i18n-ru><code><span class="tok-dir">!GrassGreen!</span>
+<span class="tok-dir">!FastMath!</span>
+<span class="tok-dir">!time!</span>
+
+<span class="tok-com">// Демонстрация скорости: вычисления с таймером и интерполяцией lerp</span>
+<span class="tok-kw">int</span> <span class="tok-fn">main</span>() {
+    <span class="tok-fn">start_time</span>();
+
+    <span class="tok-kw">take</span> total = <span class="tok-num">0.0</span>;
+    <span class="tok-kw">for</span> (<span class="tok-kw">take</span> i = <span class="tok-num">1</span>; i &lt;= <span class="tok-num">50000</span>; i++) {
+        <span class="tok-kw">take</span> t = i / <span class="tok-num">50000.0</span>;
+        <span class="tok-kw">take</span> factor = <span class="tok-fn">lerp</span>(<span class="tok-num">1.0</span>, <span class="tok-num">2.5</span>, t);
+        total = total + <span class="tok-fn">sin</span>(t) * <span class="tok-fn">discor</span>(i) * factor;
+    }
+
+    <span class="tok-fn">stop_time</span>();
+
+    <span class="tok-pipe">gout</span> <span class="tok-op">&lt;&lt;</span> <span class="tok-str">"Итоговый результат: "</span> <span class="tok-op">&lt;&lt;</span> total <span class="tok-op">&lt;&lt;</span> <span class="tok-pipe">endl</span>;
+    <span class="tok-pipe">gout</span> <span class="tok-op">&lt;&lt;</span> <span class="tok-str">"Время расчёта 50к итераций: "</span> <span class="tok-op">&lt;&lt;</span> <span class="tok-fn">conclus_time</span>() <span class="tok-op">&lt;&lt;</span> <span class="tok-pipe">endl</span>;
+
+    <span class="tok-kw">return</span> <span class="tok-num">0</span>;
+}</code></pre>
+            <pre data-i18n-en><code><span class="tok-dir">!GrassGreen!</span>
+<span class="tok-dir">!FastMath!</span>
+<span class="tok-dir">!time!</span>
+
+<span class="tok-com">// Performance demo: fast math with execution timer and lerp interpolation</span>
+<span class="tok-kw">int</span> <span class="tok-fn">main</span>() {
+    <span class="tok-fn">start_time</span>();
+
+    <span class="tok-kw">take</span> total = <span class="tok-num">0.0</span>;
+    <span class="tok-kw">for</span> (<span class="tok-kw">take</span> i = <span class="tok-num">1</span>; i &lt;= <span class="tok-num">50000</span>; i++) {
+        <span class="tok-kw">take</span> t = i / <span class="tok-num">50000.0</span>;
+        <span class="tok-kw">take</span> factor = <span class="tok-fn">lerp</span>(<span class="tok-num">1.0</span>, <span class="tok-num">2.5</span>, t);
+        total = total + <span class="tok-fn">sin</span>(t) * <span class="tok-fn">discor</span>(i) * factor;
+    }
+
+    <span class="tok-fn">stop_time</span>();
+
+    <span class="tok-pipe">gout</span> <span class="tok-op">&lt;&lt;</span> <span class="tok-str">"Computation result: "</span> <span class="tok-op">&lt;&lt;</span> total <span class="tok-op">&lt;&lt;</span> <span class="tok-pipe">endl</span>;
+    <span class="tok-pipe">gout</span> <span class="tok-op">&lt;&lt;</span> <span class="tok-str">"Time for 50k iterations: "</span> <span class="tok-op">&lt;&lt;</span> <span class="tok-fn">conclus_time</span>() <span class="tok-op">&lt;&lt;</span> <span class="tok-pipe">endl</span>;
+
+    <span class="tok-kw">return</span> <span class="tok-num">0</span>;
+}</code></pre>
+          </div>
+
+          <!-- Snippet 3: gui_window.grass -->
+          <div class="code-snippet-panel" id="snippet-gui">
+            <pre data-i18n-ru><code><span class="tok-dir">!GrassGreen!</span>
+<span class="tok-dir">!interface!</span>
+
+<span class="tok-com">// Нативный оконный интерфейс Win32 / GDI+ без сторонних рантаймов</span>
+<span class="tok-kw">int</span> <span class="tok-fn">main</span>() {
+    <span class="tok-fn">window</span>();
+    <span class="tok-fn">title</span>(<span class="tok-str">"GrassGreen 4.0 Native GUI"</span>);
+    <span class="tok-fn">size</span>(<span class="tok-num">480</span>, <span class="tok-num">320</span>);
+    <span class="tok-fn">theme</span>(<span class="tok-str">"dark"</span>);
+    <span class="tok-fn">color</span>(<span class="tok-str">"#09090b"</span>);
+
+    <span class="tok-fn">label</span>(<span class="tok-str">"Автономный Win32 GUI движок"</span>);
+    <span class="tok-fn">font-size</span>(<span class="tok-num">16</span>);
+    <span class="tok-fn">middle</span>();
+
+    <span class="tok-fn">button</span>(<span class="tok-str">"Собрать в .exe"</span>);
+    <span class="tok-fn">button-color</span>(<span class="tok-str">"#15803d"</span>);
+    <span class="tok-fn">radius</span>(<span class="tok-num">8</span>);
+
+    <span class="tok-fn">show</span>;
+    <span class="tok-kw">return</span> <span class="tok-num">0</span>;
+}</code></pre>
+            <pre data-i18n-en><code><span class="tok-dir">!GrassGreen!</span>
+<span class="tok-dir">!interface!</span>
+
+<span class="tok-com">// Native Win32 / GDI+ window UI without external runtimes</span>
+<span class="tok-kw">int</span> <span class="tok-fn">main</span>() {
+    <span class="tok-fn">window</span>();
+    <span class="tok-fn">title</span>(<span class="tok-str">"GrassGreen 4.0 Native GUI"</span>);
+    <span class="tok-fn">size</span>(<span class="tok-num">480</span>, <span class="tok-num">320</span>);
+    <span class="tok-fn">theme</span>(<span class="tok-str">"dark"</span>);
+    <span class="tok-fn">color</span>(<span class="tok-str">"#09090b"</span>);
+
+    <span class="tok-fn">label</span>(<span class="tok-str">"Standalone Win32 GUI Engine"</span>);
+    <span class="tok-fn">font-size</span>(<span class="tok-num">16</span>);
+    <span class="tok-fn">middle</span>();
+
+    <span class="tok-fn">button</span>(<span class="tok-str">"Build to .exe"</span>);
+    <span class="tok-fn">button-color</span>(<span class="tok-str">"#15803d"</span>);
+    <span class="tok-fn">radius</span>(<span class="tok-num">8</span>);
+
+    <span class="tok-fn">show</span>;
+    <span class="tok-kw">return</span> <span class="tok-num">0</span>;
+}</code></pre>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       Key Advantages (Architecture)
+       ============================================================ -->
+  <section class="arch-section" id="about">
+    <div class="container">
+      <div class="section-head">
+        <span class="section-tag">Architecture &amp; Core</span>
+        <h2 data-i18n-ru>Ключевые преимущества ядра</h2>
+        <h2 data-i18n-en>Key Architecture Advantages</h2>
+        <p data-i18n-ru>Спроектирован с нуля для максимальной энергоэффективности, предсказуемого выполнения без пауз GC и глубокого аппаратного доступа.</p>
+        <p data-i18n-en>Designed from scratch for peak throughput, zero-GC pause predictability, and direct bare-metal hardware access.</p>
+      </div>
+
+      <div class="arch-grid">
+        <!-- Card 1: Standalone PE .exe Packer -->
+        <article class="arch-card">
+          <div class="arch-card-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="2" y="3" width="20" height="14" rx="2" ry="2"/>
+              <line x1="8" y1="21" x2="16" y2="21"/>
+              <line x1="12" y1="17" x2="12" y2="21"/>
+            </svg>
+          </div>
+          <h3 data-i18n-ru>Автономный PE .exe упаковщик</h3>
+          <h3 data-i18n-en>Standalone PE .exe Packer</h3>
+          <p data-i18n-ru>Сборка программ в самостоятельные бинарные исполняемые файлы Win32 PE. Байт-код компонуется в тело загрузчика (`-emit-exe`), позволяя запускать приложение на любом компьютере без установки сторонних сред, Node.js или Python.</p>
+          <p data-i18n-en>Compiles programs into standalone Win32 PE binary executable files. Bytecode is packed directly with the native runner (`-emit-exe`), running instantly on any machine without runtime dependencies.</p>
+          <div class="arch-card-specs">
+            <span class="spec-badge">Win32 PE Loader</span>
+            <span class="spec-badge">-emit-exe</span>
+            <span class="spec-badge">Zero Runtime Dependency</span>
+          </div>
+        </article>
+
+        <!-- Card 2: Direct-Threaded VM -->
+        <article class="arch-card">
+          <div class="arch-card-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
+            </svg>
+          </div>
+          <h3 data-i18n-ru>Direct-Threaded VM (v4.0)</h3>
+          <h3 data-i18n-en>Direct-Threaded VM (v4.0)</h3>
+          <p data-i18n-ru>Прямая диспетчеризация инструкций через Labels-as-Values (`computed goto` / `goto *dispatch_table[op]`). Полное устранение циклов `while(switch)` и накладных расходов ветвления с аппаратным JIT-ускорением горячих циклов x86_64.</p>
+          <p data-i18n-en>Instruction dispatch via Labels-as-Values (`computed goto` table pointers). Completely eliminates `switch` loops and branch overhead, paired with a native x86_64 JIT compiler for critical hot loops.</p>
+          <div class="arch-card-specs">
+            <span class="spec-badge">Computed Goto</span>
+            <span class="spec-badge">x86_64 SSE2 JIT</span>
+            <span class="spec-badge">Opcode Fusion</span>
+          </div>
+        </article>
+
+        <!-- Card 3: Arena Allocator & NaN-Boxing -->
+        <article class="arch-card">
+          <div class="arch-card-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="4" y="4" width="16" height="16" rx="2" ry="2"/>
+              <rect x="9" y="9" width="6" height="6"/>
+              <line x1="9" y1="1" x2="9" y2="4"/>
+              <line x1="15" y1="1" x2="15" y2="4"/>
+              <line x1="9" y1="20" x2="9" y2="23"/>
+              <line x1="15" y1="20" x2="15" y2="23"/>
+              <line x1="20" y1="9" x2="23" y2="9"/>
+              <line x1="20" y1="14" x2="23" y2="14"/>
+              <line x1="1" y1="9" x2="4" y2="9"/>
+              <line x1="1" y1="14" x2="4" y2="14"/>
+            </svg>
+          </div>
+          <h3 data-i18n-ru>Arena Allocator &amp; NaN-Boxing</h3>
+          <h3 data-i18n-en>Arena Allocator &amp; NaN-Boxing</h3>
+          <p data-i18n-ru>Выделение памяти со сдвигом указателя (bump-pointer) без фрагментации ОЗУ и освобождением целых пулов в O(1). Все базовые значения упакованы в 64-битный формат IEEE 754 (ровно 8 байт), снижая нагрузку на L1-кэш процессора в 2 раза.</p>
+          <p data-i18n-en>Bump-pointer linear memory allocation with zero fragmentation and instant O(1) pool release. All primitives fit into a flat 64-bit IEEE 754 NaN-box (strictly 8 bytes), halving CPU L1 cache bandwidth pressure.</p>
+          <div class="arch-card-specs">
+            <span class="spec-badge">Bump Pointer</span>
+            <span class="spec-badge">8-Byte Values</span>
+            <span class="spec-badge">C-ABI Alignment</span>
+          </div>
+        </article>
+
+        <!-- Card 4: Hardware Access & Freestanding -->
+        <article class="arch-card">
+          <div class="arch-card-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="3"/>
+              <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/>
+            </svg>
+          </div>
+          <h3 data-i18n-ru>Аппаратный доступ и Freestanding</h3>
+          <h3 data-i18n-en>Hardware Access &amp; Freestanding</h3>
+          <p data-i18n-ru>Режим сборки без libc (`--freestanding`) через GrassHAL для микроконтроллеров и загрузчиков ОС. Прямое чтение/запись физических адресов (MMIO, VGA 0xB8000), аппаратные порты ввода-вывода x86 (`inb`/`outb`), квалификатор `volatile` и барьеры памяти.</p>
+          <p data-i18n-en>Independent freestanding build mode without libc (`--freestanding`) for microcontrollers and OS bootloaders. Direct memory-mapped I/O (MMIO), x86 Port I/O (`inb`/`outb`), `volatile` memory qualifiers, and hardware barriers.</p>
+          <div class="arch-card-specs">
+            <span class="spec-badge">GrassHAL</span>
+            <span class="spec-badge">MMIO &amp; Port I/O</span>
+            <span class="spec-badge">Memory Barriers</span>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       Standard Library Catalog (18 modules strictly from repo)
+       ============================================================ -->
+  <section class="stdlib-section" id="libraries">
+    <div class="container">
+      <div class="section-head">
+        <span class="section-tag">Standard Library</span>
+        <h2 data-i18n-ru>Каталог встроенных библиотек</h2>
+        <h2 data-i18n-en>Standard Library Catalog</h2>
+        <p data-i18n-ru>18 системных библиотек из официальной директории docs/. Нажмите на модуль для просмотра функций и вызовов.</p>
+        <p data-i18n-en>18 core modules straight from the official docs/ directory. Click any module to inspect functions and signatures.</p>
+      </div>
+
+      <div class="stdlib-toolbar">
+        <div class="stdlib-search-box">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="11" cy="11" r="8"/>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+          </svg>
+          <input type="text" id="libSearchInput" class="stdlib-search-input" placeholder="Поиск функций или библиотек (sin, window, connect, mmio)...">
+        </div>
+        <div class="stdlib-count-pill">
+          <span data-i18n-ru>Модулей: <span id="libVisibleCount">18</span> / 18</span>
+          <span data-i18n-en>Modules: <span id="libVisibleCount">18</span> / 18</span>
+        </div>
+      </div>
+
+      <div class="stdlib-grid" id="stdlibGrid">
+
+        <!-- 1. !FastMath! -->
+        <div class="lib-card" data-name="FastMath" data-keywords="discor sin cos abs round min max lerp rand math">
+          <div class="lib-card-header">
+            <div class="lib-card-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="4" y1="9" x2="20" y2="9"/>
+                <line x1="4" y1="15" x2="20" y2="15"/>
+                <line x1="10" y1="3" x2="8" y2="21"/>
+                <line x1="16" y1="3" x2="14" y2="21"/>
+              </svg>
+            </div>
+            <div class="lib-card-info">
+              <div class="lib-card-title">
+                <h4>!FastMath!</h4>
+                <span class="lib-card-expand-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+                </span>
+              </div>
+              <div class="lib-card-doc-ref">docs/fastmath.md</div>
+            </div>
+          </div>
+          <p class="lib-card-desc" data-i18n-ru>Быстрая вычислительная математика для игр и физики: тригонометрия, интерполяция lerp, модуль, квадратный корень.</p>
+          <p class="lib-card-desc" data-i18n-en>High-speed computational math: trigonometry, linear interpolation (lerp), absolute value, square root discor(x).</p>
+          <div class="lib-card-fn-list">
+            <div class="fn-entry">
+              <span class="fn-code">discor(x)</span>
+              <span class="fn-desc">Квадратный корень из числа для точного расчета дистанций.</span>
+            </div>
+            <div class="fn-entry">
+              <span class="fn-code">sin(x) / cos(x)</span>
+              <span class="fn-desc">Тригонометрические функции угла.</span>
+            </div>
+            <div class="fn-entry">
+              <span class="fn-code">lerp(start, end, t)</span>
+              <span class="fn-desc">Линейная интерполяция между точками по коэффициенту времени t.</span>
+            </div>
+            <div class="fn-entry">
+              <span class="fn-code">abs(x), round(x), min(a,b), max(a,b)</span>
+              <span class="fn-desc">Модуль, округление до целого, экстремумы величин.</span>
+            </div>
+            <div class="fn-entry">
+              <span class="fn-code">rand(min, max)</span>
+              <span class="fn-desc">Генератор псевдослучайных чисел в заданном диапазоне.</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 2. !CoreMath! -->
+        <div class="lib-card" data-name="CoreMath" data-keywords="qb_init h q_rand pi pow_e gcd quantum crypto">
+          <div class="lib-card-header">
+            <div class="lib-card-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"/>
+                <path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/>
+                <path d="M2 12h20"/>
+              </svg>
+            </div>
+            <div class="lib-card-info">
+              <div class="lib-card-title">
+                <h4>!CoreMath!</h4>
+                <span class="lib-card-expand-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+                </span>
+              </div>
+              <div class="lib-card-doc-ref">docs/coremath.md</div>
+            </div>
+          </div>
+          <p class="lib-card-desc" data-i18n-ru>Высокоточная математика, криптографические алгоритмы и базовая квантовая симуляция кубитов.</p>
+          <p class="lib-card-desc" data-i18n-en>High-precision arithmetic, cryptographic primitives, and quantum qubit simulation.</p>
+          <div class="lib-card-fn-list">
+            <div class="fn-entry">
+              <span class="fn-code">qb_init()</span>
+              <span class="fn-desc">Инициализация квантового бита в базовое состояние.</span>
+            </div>
+            <div class="fn-entry">
+              <span class="fn-code">h(q)</span>
+              <span class="fn-desc">Вентиль Адамара: перевод кубита в 50/50 суперпозицию.</span>
+            </div>
+            <div class="fn-entry">
+              <span class="fn-code">q_rand(q)</span>
+              <span class="fn-desc">Измерение кубита с коллапсом суперпозиции в непредсказуемый 0 или 1.</span>
+            </div>
+            <div class="fn-entry">
+              <span class="fn-code">gcd(a, b)</span>
+              <span class="fn-desc">Наибольший общий делитель для криптографических алгоритмов.</span>
+            </div>
+            <div class="fn-entry">
+              <span class="fn-code">pi(), pow_e(b, e)</span>
+              <span class="fn-desc">Число Пи сверхвысокой точности и возведение больших чисел в степень.</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 3. !2DGraphics! -->
+        <div class="lib-card" data-name="2DGraphics" data-keywords="create_canvas draw_line draw_circle draw_rectangle gfx_init gfx_running gfx_collide">
+          <div class="lib-card-header">
+            <div class="lib-card-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="6" cy="6" r="3"/>
+                <circle cx="6" cy="18" r="3"/>
+                <line x1="20" y1="4" x2="8.12" y2="15.88"/>
+                <line x1="14.47" y1="14.48" x2="20" y2="20"/>
+                <line x1="8.12" y1="8.12" x2="12" y2="12"/>
+              </svg>
+            </div>
+            <div class="lib-card-info">
+              <div class="lib-card-title">
+                <h4>!2DGraphics!</h4>
+                <span class="lib-card-expand-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+                </span>
+              </div>
+              <div class="lib-card-doc-ref">docs/2DGraphics.md</div>
+            </div>
+          </div>
+          <p class="lib-card-desc" data-i18n-ru>Графический 2D-движок: холст, двойная буферизация, примитивы, опрос клавиатуры и AABB-коллизии.</p>
+          <p class="lib-card-desc" data-i18n-en>2D graphics engine: double buffering, geometric primitives, real-time keyboard polling, and AABB collisions.</p>
+          <div class="lib-card-fn-list">
+            <div class="fn-entry">
+              <span class="fn-code">create_canvas(w, h), save_image(path)</span>
+              <span class="fn-desc">Создание холста и сохранение в файл.</span>
+            </div>
+            <div class="fn-entry">
+              <span class="fn-code">gfx_init(title, w, h), gfx_running()</span>
+              <span class="fn-desc">Инициализация аппаратного окна и опрос цикла событий.</span>
+            </div>
+            <div class="fn-entry">
+              <span class="fn-code">gfx_rect, gfx_circle, gfx_line, gfx_text</span>
+              <span class="fn-desc">Отрисовка примитивов и текста с заданной толщиной и палитрой.</span>
+            </div>
+            <div class="fn-entry">
+              <span class="fn-code">gfx_key(key_name)</span>
+              <span class="fn-desc">Проверка нажатия клавиш клавиатуры (WASD, стрелки, ESC).</span>
+            </div>
+            <div class="fn-entry">
+              <span class="fn-code">gfx_collide(x1, y1, w1, h1, x2, y2, w2, h2)</span>
+              <span class="fn-desc">Аппаратная проверка пересечения двух прямоугольных объектов.</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 4. !interface! (gui_engine) -->
+        <div class="lib-card" data-name="interface gui_engine" data-keywords="window title size color theme label enter button radius show click-ob">
+          <div class="lib-card-header">
+            <div class="lib-card-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+                <line x1="3" y1="9" x2="21" y2="9"/>
+                <line x1="9" y1="21" x2="9" y2="9"/>
+              </svg>
+            </div>
+            <div class="lib-card-info">
+              <div class="lib-card-title">
+                <h4>!interface!</h4>
+                <span class="lib-card-expand-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+                </span>
+              </div>
+              <div class="lib-card-doc-ref">docs/interface.md</div>
+            </div>
+          </div>
+          <p class="lib-card-desc" data-i18n-ru>Оконный GUI Windows (Win32/GDI+): формы, темные темы, кнопки, поля ввода, выравнивание и закругления.</p>
+          <p class="lib-card-desc" data-i18n-en>Native Windows GUI stack: forms, dark/light themes, buttons, text fields, layouts, and click triggers.</p>
+          <div class="lib-card-fn-list">
+            <div class="fn-entry">
+              <span class="fn-code">window(), title(str), size(w, h), show</span>
+              <span class="fn-desc">Конфигурация параметров главного окна и вывод на экран.</span>
+            </div>
+            <div class="fn-entry">
+              <span class="fn-code">theme("dark"), color("#hex"), glass</span>
+              <span class="fn-desc">Стилизация формы, подложки и эффекты прозрачности Mica/Aero.</span>
+            </div>
+            <div class="fn-entry">
+              <span class="fn-code">button(txt), button-color(c), radius(r)</span>
+              <span class="fn-desc">Интерактивные кнопки с кастомным закруглением и обработчиком click-ob.</span>
+            </div>
+            <div class="fn-entry">
+              <span class="fn-code">label(txt), enter(), font-size(n)</span>
+              <span class="fn-desc">Текстовые блоки и поля ввода информации.</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 5. !GrassNet! -->
+        <div class="lib-card" data-name="GrassNet" data-keywords="connect send accept create_serv ping resolve_ip download net_status sockets http">
+          <div class="lib-card-header">
+            <div class="lib-card-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"/>
+                <line x1="2" y1="12" x2="22" y2="12"/>
+                <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+              </svg>
+            </div>
+            <div class="lib-card-info">
+              <div class="lib-card-title">
+                <h4>!GrassNet!</h4>
+                <span class="lib-card-expand-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+                </span>
+              </div>
+              <div class="lib-card-doc-ref">docs/GrassNet.md</div>
+            </div>
+          </div>
+          <p class="lib-card-desc" data-i18n-ru>Сетевой стек: TCP/IP сокет-серверы, HTTP/HTTPS запросы, ping, DNS резолвер и загрузка файлов.</p>
+          <p class="lib-card-desc" data-i18n-en>Network engine: TCP/IP socket servers, HTTP/HTTPS client, ICMP ping, DNS resolver, and file download.</p>
+          <div class="lib-card-fn-list">
+            <div class="fn-entry">
+              <span class="fn-code">create_serv() { port, IP, password }</span>
+              <span class="fn-desc">Конфигурация и запуск выделенного сетевого TCP-сервера.</span>
+            </div>
+            <div class="fn-entry">
+              <span class="fn-code">connect(ip, port), accept(), net_close()</span>
+              <span class="fn-desc">Установка клиентского соединения и управление сокетами.</span>
+            </div>
+            <div class="fn-entry">
+              <span class="fn-code">send(url, method, body), net_status()</span>
+              <span class="fn-desc">Отправка HTTP-запросов и получение статус-кодов.</span>
+            </div>
+            <div class="fn-entry">
+              <span class="fn-code">ping(host), resolve_ip(domain), download(url, path)</span>
+              <span class="fn-desc">Диагностика задержки, DNS резолв и прямое скачивание на диск.</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 6. !fsys! -->
+        <div class="lib-card" data-name="fsys GrassFsys" data-keywords="fs_mkdir fs_is_dir fs_size fs_copy fs_list fs_read fs_write fs_exists files">
+          <div class="lib-card-header">
+            <div class="lib-card-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/>
+              </svg>
+            </div>
+            <div class="lib-card-info">
+              <div class="lib-card-title">
+                <h4>!fsys!</h4>
+                <span class="lib-card-expand-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+                </span>
+              </div>
+              <div class="lib-card-doc-ref">docs/fsys.md</div>
+            </div>
+          </div>
+          <p class="lib-card-desc" data-i18n-ru>Файловая система: чтение и запись файлов, создание каталогов, копирование, замер размеров и обход папок.</p>
+          <p class="lib-card-desc" data-i18n-en>Filesystem API: reading and writing files, directory traversal, file size queries, and stream operations.</p>
+          <div class="lib-card-fn-list">
+            <div class="fn-entry">
+              <span class="fn-code">fs_read(path), fs_write(path, text)</span>
+              <span class="fn-desc">Текстовое чтение и перезапись содержимого файла.</span>
+            </div>
+            <div class="fn-entry">
+              <span class="fn-code">fs_append(path, text), fs_delete(path)</span>
+              <span class="fn-desc">Дописывание в конец файла и удаление с диска.</span>
+            </div>
+            <div class="fn-entry">
+              <span class="fn-code">fs_mkdir(path), fs_list(path), fs_is_dir(path)</span>
+              <span class="fn-desc">Создание папок и получение списков вложенных файлов.</span>
+            </div>
+            <div class="fn-entry">
+              <span class="fn-code">fs_size(path), fs_exists(path)</span>
+              <span class="fn-desc">Проверка наличия файла и определение размера в байтах.</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 7. !memory! -->
+        <div class="lib-card" data-name="memory GrassMemory" data-keywords="memory_usit memory_auto memory_clean memory_alloc memory_dump arena">
+          <div class="lib-card-header">
+            <div class="lib-card-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="2" y="2" width="20" height="8" rx="2" ry="2"/>
+                <rect x="2" y="14" width="20" height="8" rx="2" ry="2"/>
+                <line x1="6" y1="6" x2="6.01" y2="6"/>
+                <line x1="6" y1="18" x2="6.01" y2="18"/>
+              </svg>
+            </div>
+            <div class="lib-card-info">
+              <div class="lib-card-title">
+                <h4>!memory!</h4>
+                <span class="lib-card-expand-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+                </span>
+              </div>
+              <div class="lib-card-doc-ref">docs/memory.md</div>
+            </div>
+          </div>
+          <p class="lib-card-desc" data-i18n-ru>Управление памятью: Arena Allocator, замер объема ОЗУ процесса, непрерывные бинарные буферы и отладочный дамп.</p>
+          <p class="lib-card-desc" data-i18n-en>Memory management: Arena Allocator control, process RAM monitoring, raw binary buffers, and memory dump.</p>
+          <div class="lib-card-fn-list">
+            <div class="fn-entry">
+              <span class="fn-code">memory_clean(), memory_auto()</span>
+              <span class="fn-desc">Мгновенный сброс арены памяти и автоподбор размера пулов.</span>
+            </div>
+            <div class="fn-entry">
+              <span class="fn-code">memory_alloc(bytes), memory_free_block(id)</span>
+              <span class="fn-desc">Выделение непрерывного буфера памяти под бинарные структуры.</span>
+            </div>
+            <div class="fn-entry">
+              <span class="fn-code">memory_usit(), memory_free()</span>
+              <span class="fn-desc">Объем памяти процесса (в МБ) и доступная свободная память ПК.</span>
+            </div>
+            <div class="fn-entry">
+              <span class="fn-code">memory_dump(), memory_limit(mb)</span>
+              <span class="fn-desc">Слепок стека виртуальной машины и аппаратный лимит потребления.</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 8. !json! -->
+        <div class="lib-card" data-name="json GrassJson" data-keywords="json_get json_set json_valid json_minify json_build json_parse">
+          <div class="lib-card-header">
+            <div class="lib-card-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="16 18 22 12 16 6"/>
+                <polyline points="8 6 2 12 8 18"/>
+              </svg>
+            </div>
+            <div class="lib-card-info">
+              <div class="lib-card-title">
+                <h4>!json!</h4>
+                <span class="lib-card-expand-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+                </span>
+              </div>
+              <div class="lib-card-doc-ref">docs/json.md</div>
+            </div>
+          </div>
+          <p class="lib-card-desc" data-i18n-ru>Парсер, сериализатор и построитель JSON-структур, проверка валидности синтаксиса и сжатие строк.</p>
+          <p class="lib-card-desc" data-i18n-en>JSON parser, serializer, and dynamic builder with syntax validation and payload minification.</p>
+          <div class="lib-card-fn-list">
+            <div class="fn-entry">
+              <span class="fn-code">json_get(str, path), json_set(str, key, val)</span>
+              <span class="fn-desc">Чтение по точечному пути и запись полей в JSON-строке.</span>
+            </div>
+            <div class="fn-entry">
+              <span class="fn-code">json_valid(str), json_minify(str)</span>
+              <span class="fn-desc">Проверка валидности синтаксиса и удаление лишних пробелов.</span>
+            </div>
+            <div class="fn-entry">
+              <span class="fn-code">json_add(k, v), json_build(), json_clear()</span>
+              <span class="fn-desc">Пошаговое построение JSON-объекта в буфере.</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 9. !proc! -->
+        <div class="lib-card" data-name="proc GrassProc" data-keywords="proc_find proc_kill proc_mem proc_exists proc_list processes">
+          <div class="lib-card-header">
+            <div class="lib-card-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="4" y="4" width="16" height="16" rx="2" ry="2"/>
+                <line x1="9" y1="9" x2="15" y2="15"/>
+                <line x1="15" y1="9" x2="9" y2="15"/>
+              </svg>
+            </div>
+            <div class="lib-card-info">
+              <div class="lib-card-title">
+                <h4>!proc!</h4>
+                <span class="lib-card-expand-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+                </span>
+              </div>
+              <div class="lib-card-doc-ref">docs/proc.md</div>
+            </div>
+          </div>
+          <p class="lib-card-desc" data-i18n-ru>Управление процессами Windows: поиск процессов по имени, PID, мониторинг памяти и принудительное завершение.</p>
+          <p class="lib-card-desc" data-i18n-en>Windows process management: lookup by executable name, PID inspection, memory usage, and termination.</p>
+          <div class="lib-card-fn-list">
+            <div class="fn-entry">
+              <span class="fn-code">proc_find(name)</span>
+              <span class="fn-desc">Поиск процесса по имени .exe, возвращает числовой PID.</span>
+            </div>
+            <div class="fn-entry">
+              <span class="fn-code">proc_kill(pid), proc_exists(pid)</span>
+              <span class="fn-desc">Принудительное завершение и проверка активности процесса.</span>
+            </div>
+            <div class="fn-entry">
+              <span class="fn-code">proc_mem(pid), proc_list()</span>
+              <span class="fn-desc">Замер ОЗУ процесса в МБ и получение списка всех задач в ОС.</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 10. !time! -->
+        <div class="lib-card" data-name="time GrassTime" data-keywords="start_time stop_time conclus_time clock_ms now_ms time get_date">
+          <div class="lib-card-header">
+            <div class="lib-card-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"/>
+                <polyline points="12 6 12 12 16 14"/>
+              </svg>
+            </div>
+            <div class="lib-card-info">
+              <div class="lib-card-title">
+                <h4>!time!</h4>
+                <span class="lib-card-expand-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+                </span>
+              </div>
+              <div class="lib-card-doc-ref">docs/time.md</div>
+            </div>
+          </div>
+          <p class="lib-card-desc" data-i18n-ru>Высокоточные системные часы, миллисекундный бенчмаркинг блоков инструкций, метки даты и времени.</p>
+          <p class="lib-card-desc" data-i18n-en>High-precision monotonic hardware clocks, block execution timers, and formatted timestamps.</p>
+          <div class="lib-card-fn-list">
+            <div class="fn-entry">
+              <span class="fn-code">start_time(), stop_time(), conclus_time()</span>
+              <span class="fn-desc">Запуск таймера, остановка и получение отформатированной строки.</span>
+            </div>
+            <div class="fn-entry">
+              <span class="fn-code">clock_ms() / now_ms()</span>
+              <span class="fn-desc">Монотонное аппаратное время системы в миллисекундах.</span>
+            </div>
+            <div class="fn-entry">
+              <span class="fn-code">time(), get_date(), get_time_str()</span>
+              <span class="fn-desc">UNIX-таймстемп и строковые представления календарной даты.</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 11. !random! -->
+        <div class="lib-card" data-name="random GrassRandom" data-keywords="random random_txt stop_random play_random rand_int rand_float">
+          <div class="lib-card-header">
+            <div class="lib-card-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+                <circle cx="8.5" cy="8.5" r="1.5"/>
+                <circle cx="15.5" cy="15.5" r="1.5"/>
+                <circle cx="15.5" cy="8.5" r="1.5"/>
+                <circle cx="8.5" cy="15.5" r="1.5"/>
+                <circle cx="12" cy="12" r="1.5"/>
+              </svg>
+            </div>
+            <div class="lib-card-info">
+              <div class="lib-card-title">
+                <h4>!random!</h4>
+                <span class="lib-card-expand-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+                </span>
+              </div>
+              <div class="lib-card-doc-ref">docs/random.md</div>
+            </div>
+          </div>
+          <p class="lib-card-desc" data-i18n-ru>Генератор псевдослучайных величин: целые и дробные числа в диапазоне, случайные строки букв и управление зерном.</p>
+          <p class="lib-card-desc" data-i18n-en>Pseudorandom generator: ranged integers and floats, random strings, and deterministic seed locking.</p>
+          <div class="lib-card-fn-list">
+            <div class="fn-entry">
+              <span class="fn-code">rand_int(min, max), rand_float(min, max)</span>
+              <span class="fn-desc">Случайное целое или число с плавающей точкой в заданных границах.</span>
+            </div>
+            <div class="fn-entry">
+              <span class="fn-code">random_txt("rus" | "en")</span>
+              <span class="fn-desc">Генерация последовательности случайных буквенных символов.</span>
+            </div>
+            <div class="fn-entry">
+              <span class="fn-code">stop_random(), play_random()</span>
+              <span class="fn-desc">Фиксация текущего значения генератора и возобновление работы.</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 12. !mmio! -->
+        <div class="lib-card" data-name="mmio io hw" data-keywords="mmio_read8 mmio_write8 inb outb memory_barrier volatile hardware">
+          <div class="lib-card-header">
+            <div class="lib-card-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
+                <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
+              </svg>
+            </div>
+            <div class="lib-card-info">
+              <div class="lib-card-title">
+                <h4>!mmio!</h4>
+                <span class="lib-card-expand-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+                </span>
+              </div>
+              <div class="lib-card-doc-ref">docs/mmio.md</div>
+            </div>
+          </div>
+          <p class="lib-card-desc" data-i18n-ru>Аппаратный доступ к физической памяти: чтение/запись 8-64 бит, порты x86 inb/outb, барьеры памяти mfence/lfence.</p>
+          <p class="lib-card-desc" data-i18n-en>Direct hardware MMIO: 8-64 bit physical memory access, x86 Port I/O, mfence/lfence barriers, and volatile qualifiers.</p>
+          <div class="lib-card-fn-list">
+            <div class="fn-entry">
+              <span class="fn-code">mmio_read8/16/32/64(addr)</span>
+              <span class="fn-desc">Прямое чтение байта, слова или двойного слова по физическому адресу.</span>
+            </div>
+            <div class="fn-entry">
+              <span class="fn-code">mmio_write8/16/32/64(addr, val)</span>
+              <span class="fn-desc">Прямая запись в физический адрес памяти (видеобуфер VGA 0xB8000, APIC).</span>
+            </div>
+            <div class="fn-entry">
+              <span class="fn-code">inb(p), outb(p, v), io_in32, io_out32</span>
+              <span class="fn-desc">Низкоуровневые инструкции аппаратных портов ввода-вывода x86.</span>
+            </div>
+            <div class="fn-entry">
+              <span class="fn-code">memory_barrier(), read_barrier(), write_barrier()</span>
+              <span class="fn-desc">Аппаратные барьеры сериализации инструкций процессора.</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 13. !thread! -->
+        <div class="lib-card" data-name="thread async" data-keywords="thread async thread_join mutex_create mutex_lock mutex_unlock threads">
+          <div class="lib-card-header">
+            <div class="lib-card-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="6" y1="3" x2="6" y2="15"/>
+                <circle cx="18" cy="6" r="3"/>
+                <circle cx="6" cy="18" r="3"/>
+                <path d="M18 9a9 9 0 0 1-9 9"/>
+              </svg>
+            </div>
+            <div class="lib-card-info">
+              <div class="lib-card-title">
+                <h4>!thread!</h4>
+                <span class="lib-card-expand-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+                </span>
+              </div>
+              <div class="lib-card-doc-ref">docs/thread.md</div>
+            </div>
+          </div>
+          <p class="lib-card-desc" data-i18n-ru>Многопоточность ядра: параллельные потоки ОС, фоновые асинхронные задачи, системные мьютексы и синхронизация.</p>
+          <p class="lib-card-desc" data-i18n-en>Core concurrency: OS threads, async tasks, system mutexes, thread join/detach, and shared environment.</p>
+          <div class="lib-card-fn-list">
+            <div class="fn-entry">
+              <span class="fn-code">thread(fn, ...args), thread_join(t)</span>
+              <span class="fn-desc">Запуск функции в системном потоке и ожидание возвращаемого значения.</span>
+            </div>
+            <div class="fn-entry">
+              <span class="fn-code">async fn(...args);</span>
+              <span class="fn-desc">Запуск фоновой асинхронной задачи без блокировки основного кода.</span>
+            </div>
+            <div class="fn-entry">
+              <span class="fn-code">mutex_create(), mutex_lock(m), mutex_unlock(m)</span>
+              <span class="fn-desc">Создание мьютекса и защита критической секции от гонок данных.</span>
+            </div>
+            <div class="fn-entry">
+              <span class="fn-code">thread_id(), thread_sleep(ms)</span>
+              <span class="fn-desc">Получение TID потока и задержка выполнения в миллисекундах.</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 14. !database! -->
+        <div class="lib-card" data-name="database GSE gdb" data-keywords="db_open db_save db_set db_get db_encrypt table key-value">
+          <div class="lib-card-header">
+            <div class="lib-card-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <ellipse cx="12" cy="5" rx="9" ry="3"/>
+                <path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/>
+                <path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/>
+              </svg>
+            </div>
+            <div class="lib-card-info">
+              <div class="lib-card-title">
+                <h4>!database!</h4>
+                <span class="lib-card-expand-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+                </span>
+              </div>
+              <div class="lib-card-doc-ref">docs/gdb.md</div>
+            </div>
+          </div>
+          <p class="lib-card-desc" data-i18n-ru>Встроенный Key-Value движок базы данных GSE (файлы `.gdb`): таблицы, автосохранение, XOR-HEX шифрование и экспорт в JSON.</p>
+          <p class="lib-card-desc" data-i18n-en>Embedded Key-Value GSE database engine (.gdb): tables, auto-save, XOR-HEX key encryption, and JSON export.</p>
+          <div class="lib-card-fn-list">
+            <div class="fn-entry">
+              <span class="fn-code">db_open(path), db_save(path), db_autosave(1)</span>
+              <span class="fn-desc">Загрузка и сохранение базы данных на диск с автоматическим сбросом.</span>
+            </div>
+            <div class="fn-entry">
+              <span class="fn-code">db_set(k, v), db_get(k), db_has(k), db_del(k)</span>
+              <span class="fn-desc">Основные операции Key-Value хранилища в оперативной памяти.</span>
+            </div>
+            <div class="fn-entry">
+              <span class="fn-code">db_encrypt(k), db_decrypt(k), db_hash(s)</span>
+              <span class="fn-desc">Криптографическая защита значений и вычисление хеша сессии.</span>
+            </div>
+            <div class="fn-entry">
+              <span class="fn-code">table(name) ... end-table</span>
+              <span class="fn-desc">Секционирование данных по именованным таблицам.</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 15. !sys! -->
+        <div class="lib-card" data-name="sys GrassSys" data-keywords="clip_set clip_get screen_w cpu_cores ram_total_mb uptime_sec">
+          <div class="lib-card-header">
+            <div class="lib-card-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="2" y="3" width="20" height="14" rx="2" ry="2"/>
+                <line x1="8" y1="21" x2="16" y2="21"/>
+                <line x1="12" y1="17" x2="12" y2="21"/>
+              </svg>
+            </div>
+            <div class="lib-card-info">
+              <div class="lib-card-title">
+                <h4>!sys!</h4>
+                <span class="lib-card-expand-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+                </span>
+              </div>
+              <div class="lib-card-doc-ref">docs/sys.md</div>
+            </div>
+          </div>
+          <p class="lib-card-desc" data-i18n-ru>Диагностика Windows: системный буфер обмена (Ctrl+C/V), разрешение монитора, количество ядер CPU, аптайм.</p>
+          <p class="lib-card-desc" data-i18n-en>Windows environment diagnostics: system clipboard integration, monitor resolution, CPU topology, and uptime.</p>
+          <div class="lib-card-fn-list">
+            <div class="fn-entry">
+              <span class="fn-code">clip_set(txt), clip_get()</span>
+              <span class="fn-desc">Копирование и считывание текста из системного буфера обмена.</span>
+            </div>
+            <div class="fn-entry">
+              <span class="fn-code">screen_w(), screen_h()</span>
+              <span class="fn-desc">Ширина и высота экрана основного монитора в пикселях.</span>
+            </div>
+            <div class="fn-entry">
+              <span class="fn-code">cpu_cores(), ram_total_mb(), uptime_sec()</span>
+              <span class="fn-desc">Число логических ядер, физическое ОЗУ и время работы ПК.</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 16. !tg! -->
+        <div class="lib-card" data-name="tg Telegram" data-keywords="telegram_init send_message get_updates send_photo bot">
+          <div class="lib-card-header">
+            <div class="lib-card-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="22" y1="2" x2="11" y2="13"/>
+                <polygon points="22 2 15 22 11 13 2 9 22 2"/>
+              </svg>
+            </div>
+            <div class="lib-card-info">
+              <div class="lib-card-title">
+                <h4>!tg!</h4>
+                <span class="lib-card-expand-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+                </span>
+              </div>
+              <div class="lib-card-doc-ref">docs/tg.md</div>
+            </div>
+          </div>
+          <p class="lib-card-desc" data-i18n-ru>Разработка Telegram-ботов: инициализация сессии по Bot API токену, отправка сообщений, фото и документов.</p>
+          <p class="lib-card-desc" data-i18n-en>Telegram Bot API: session initialization, incoming updates poll, message, photo, and document transmission.</p>
+          <div class="lib-card-fn-list">
+            <div class="fn-entry">
+              <span class="fn-code">telegram_init(token)</span>
+              <span class="fn-desc">Авторизация сессии бота в Telegram Bot API.</span>
+            </div>
+            <div class="fn-entry">
+              <span class="fn-code">send_message(chat_id, text)</span>
+              <span class="fn-desc">Отправка форматированного текстового сообщения в чат.</span>
+            </div>
+            <div class="fn-entry">
+              <span class="fn-code">get_updates(), send_photo, send_document</span>
+              <span class="fn-desc">Прием входящих событий и отправка медиафайлов.</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 17. !GrassWeb! -->
+        <div class="lib-card" data-name="GrassWeb web" data-keywords="script-start on-click set-text val repaint-bg alert frontend">
+          <div class="lib-card-header">
+            <div class="lib-card-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="2" y="3" width="20" height="14" rx="2" ry="2"/>
+                <line x1="2" y1="7" x2="22" y2="7"/>
+              </svg>
+            </div>
+            <div class="lib-card-info">
+              <div class="lib-card-title">
+                <h4>!GrassWeb!</h4>
+                <span class="lib-card-expand-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+                </span>
+              </div>
+              <div class="lib-card-doc-ref">docs/WEB.md</div>
+            </div>
+          </div>
+          <p class="lib-card-desc" data-i18n-ru>Декларативный фронтенд-DSL для создания интерактивных веб-страниц, обработки кликов, ввода и таймеров.</p>
+          <p class="lib-card-desc" data-i18n-en>Declarative web-scripting DSL: reactive events, DOM manipulations, intervals, and localStorage persistence.</p>
+          <div class="lib-card-fn-list">
+            <div class="fn-entry">
+              <span class="fn-code">script-start ... script-end</span>
+              <span class="fn-desc">Блок реактивной логики веб-интерфейса.</span>
+            </div>
+            <div class="fn-entry">
+              <span class="fn-code">on-click(id), on-input(id), every(ms)</span>
+              <span class="fn-desc">Обработчики пользовательских действий и таймеров.</span>
+            </div>
+            <div class="fn-entry">
+              <span class="fn-code">set-text(id, t), val(id), save(k, v), load(k)</span>
+              <span class="fn-desc">Манипуляции DOM-элементами и постоянное хранилище браузера.</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 18. !GrassGreen! Core -->
+        <div class="lib-card" data-name="GrassGreen core main" data-keywords="main gout gin endl take struct import len trim string">
+          <div class="lib-card-header">
+            <div class="lib-card-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="3"/>
+                <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/>
+              </svg>
+            </div>
+            <div class="lib-card-info">
+              <div class="lib-card-title">
+                <h4>!GrassGreen!</h4>
+                <span class="lib-card-expand-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+                </span>
+              </div>
+              <div class="lib-card-doc-ref">docs/main.md</div>
+            </div>
+          </div>
+          <p class="lib-card-desc" data-i18n-ru>Базовое ядро языка: `gout`, `gin`, типы данных, структуры `struct`, массивы `array`, строки `len`/`substr`, вызов `msgbox` и `system`.</p>
+          <p class="lib-card-desc" data-i18n-en>Core language runtime: `gout`/`gin` I/O streams, `struct` types, dynamic arrays, string utilities, and Win32 system bridges.</p>
+          <div class="lib-card-fn-list">
+            <div class="fn-entry">
+              <span class="fn-code">gout &lt;&lt; val &lt;&lt; endl; / gin &gt;&gt; var;</span>
+              <span class="fn-desc">Потоковый вывод и ввод через системные вызовы Win32 WriteFile.</span>
+            </div>
+            <div class="fn-entry">
+              <span class="fn-code">struct Name { f1: u32, f2: u64 }</span>
+              <span class="fn-desc">Пользовательские структуры со строгим C-ABI выравниванием полей.</span>
+            </div>
+            <div class="fn-entry">
+              <span class="fn-code">import "file.grass";</span>
+              <span class="fn-desc">Импорт модулей с защитой от циклов (#pragma once).</span>
+            </div>
+            <div class="fn-entry">
+              <span class="fn-code">len(s), upper(s), lower(s), substr(s, p, l), trim(s)</span>
+              <span class="fn-desc">Строковый API высокой производительности.</span>
+            </div>
+            <div class="fn-entry">
+              <span class="fn-code">msgbox(title, text), beep(f, d), clear()</span>
+              <span class="fn-desc">Системные вызовы Windows и управление консолью.</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       Roadmap v4.0 (The Evolution - 20 Points from ROADMAP.md)
+       ============================================================ -->
+  <section class="roadmap-section" id="roadmap">
+    <div class="container">
+      <div class="section-head">
+        <span class="section-tag">The Evolution</span>
+        <h2 data-i18n-ru>Дорожная карта ядра v4.0</h2>
+        <h2 data-i18n-en>Core Roadmap v4.0 (The Evolution)</h2>
+        <p data-i18n-ru>20 пунктов архитектурной эволюции ядра GrassGreen: от Stack VM к автономному системному языку с нативным JIT и Freestanding режимом.</p>
+        <p data-i18n-en>All 20 architectural evolution milestones from plans/ROADMAP.md: transitioning into an autonomous freestanding system language.</p>
+      </div>
+
+      <div class="roadmap-filter-bar">
+        <button type="button" class="roadmap-filter-btn active" data-category="all">
+          <span data-i18n-ru>Все 20 пунктов</span>
+          <span data-i18n-en>All 20 Milestones</span>
+        </button>
+        <button type="button" class="roadmap-filter-btn" data-category="core">
+          <span data-i18n-ru>Ядро и VM</span>
+          <span data-i18n-en>Core &amp; VM</span>
+        </button>
+        <button type="button" class="roadmap-filter-btn" data-category="compiler">
+          <span data-i18n-ru>Компилятор &amp; Оптимизации</span>
+          <span data-i18n-en>Compiler &amp; Optimizer</span>
+        </button>
+        <button type="button" class="roadmap-filter-btn" data-category="syntax">
+          <span data-i18n-ru>Синтаксис &amp; Память</span>
+          <span data-i18n-en>Syntax &amp; Memory</span>
+        </button>
+        <button type="button" class="roadmap-filter-btn" data-category="dx">
+          <span data-i18n-ru>Экосистема &amp; DX</span>
+          <span data-i18n-en>Ecosystem &amp; DX</span>
+        </button>
+      </div>
+
+      <div class="timeline-container" id="timelineList">
+
+        <!-- 1 -->
+        <div class="timeline-item" data-category="core">
+          <div class="timeline-dot"></div>
+          <div class="timeline-card">
+            <div class="timeline-head">
+              <div class="timeline-title-wrap">
+                <span class="timeline-num">п. 1</span>
+                <h4 data-i18n-ru>Минимальный JIT-компилятор</h4>
+                <h4 data-i18n-en>Minimal x86_64 JIT Compiler</h4>
+              </div>
+              <span class="timeline-status">
+                <svg viewBox="0 0 24 24" fill="none" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+                <span>Complete</span>
+              </span>
+            </div>
+            <div class="timeline-body">
+              <p data-i18n-ru>Генерация нативных машинных инструкций x86_64 для критических горячих участков байт-кода. Выделение страниц PAGE_EXECUTE_READWRITE, работа с SSE2 регистрами (xmm0, xmm1), соответствие Microsoft x64 ABI и флаг компилятора `--jit` (авто-включение при `-O3`).</p>
+              <p data-i18n-en>Generates native x86_64 machine code for hot execution loops using SSE2 registers and Microsoft x64 ABI calling conventions with `--jit` CLI switch.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- 2 -->
+        <div class="timeline-item" data-category="syntax">
+          <div class="timeline-dot"></div>
+          <div class="timeline-card">
+            <div class="timeline-head">
+              <div class="timeline-title-wrap">
+                <span class="timeline-num">п. 2</span>
+                <h4 data-i18n-ru>Динамические массивы: `array`</h4>
+                <h4 data-i18n-en>Dynamic Arrays: `array`</h4>
+              </div>
+              <span class="timeline-status">
+                <svg viewBox="0 0 24 24" fill="none" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+                <span>Complete</span>
+              </span>
+            </div>
+            <div class="timeline-body">
+              <p data-i18n-ru>Векторные структуры динамического и фиксированного размера с быстрой индексацией `arr[i]`, методами `items.push(val)`, `items.pop()` и встроенной функцией длины `len(items)`.</p>
+              <p data-i18n-en>Vector structures with rapid `arr[i]` indexing, push/pop operations, and O(1) length inspection via `len()`.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- 3 -->
+        <div class="timeline-item" data-category="dx">
+          <div class="timeline-dot"></div>
+          <div class="timeline-card">
+            <div class="timeline-head">
+              <div class="timeline-title-wrap">
+                <span class="timeline-num">п. 3</span>
+                <h4 data-i18n-ru>Автодополнение (IntelliSense) по всем библиотекам</h4>
+                <h4 data-i18n-en>IntelliSense Snippets Across All Libraries</h4>
+              </div>
+              <span class="timeline-status">
+                <svg viewBox="0 0 24 24" fill="none" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+                <span>Complete</span>
+              </span>
+            </div>
+            <div class="timeline-body">
+              <p data-i18n-ru>Подсказка встроенных функций, методов и констант библиотек в реальном времени через богатый набор сниппетов: `main`, `gout`, `gin`, `fn`, `struct`, `thread`, `async`, `mutex`, `mmio_read`, `mmio_write`, `inb`, `outb`, `barrier`, `gfx_app`.</p>
+              <p data-i18n-en>Real-time completions across all 18 standard libraries in VS Code via comprehensive snippets schema.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- 4 -->
+        <div class="timeline-item" data-category="dx">
+          <div class="timeline-dot"></div>
+          <div class="timeline-card">
+            <div class="timeline-head">
+              <div class="timeline-title-wrap">
+                <span class="timeline-num">п. 4</span>
+                <h4 data-i18n-ru>Подсветка синтаксиса по всем библиотекам</h4>
+                <h4 data-i18n-en>TextMate Syntax Highlighting</h4>
+              </div>
+              <span class="timeline-status">
+                <svg viewBox="0 0 24 24" fill="none" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+                <span>Complete</span>
+              </span>
+            </div>
+            <div class="timeline-body">
+              <p data-i18n-ru>Разработка TextMate грамматики (`syntaxes/grassgreen.tmLanguage.json`) для всех ключевых слов, директив `!module!`, структур, типов, потоков `gout`/`gin` и операторов сдвига `&lt;&lt;`/`&gt;&gt;`.</p>
+              <p data-i18n-en>TextMate grammar covering all tokens, directives, types, stream operators, and library calls.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- 5 -->
+        <div class="timeline-item" data-category="dx">
+          <div class="timeline-dot"></div>
+          <div class="timeline-card">
+            <div class="timeline-head">
+              <div class="timeline-title-wrap">
+                <span class="timeline-num">п. 5</span>
+                <h4 data-i18n-ru>Интеграция в системный PATH и графический установщик</h4>
+                <h4 data-i18n-en>System PATH Integration &amp; Win32 Installer</h4>
+              </div>
+              <span class="timeline-status">
+                <svg viewBox="0 0 24 24" fill="none" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+                <span>Complete</span>
+              </span>
+            </div>
+            <div class="timeline-body">
+              <p data-i18n-ru>Полноценный автономный GUI инсталлятор `setup.exe` в темной теме GrassGreen. Упаковка `grg.exe`, ассоциации расширений `.grass` и `.gdb`, тихий режим (`setup.exe /silent`), авто-запись в реестр HKCU/HKLM PATH с широковещательным WM_SETTINGCHANGE.</p>
+              <p data-i18n-en>Standalone dark-themed setup.exe with silent mode (`setup.exe /silent`), file associations, and instant PATH broadcast.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- 6 -->
+        <div class="timeline-item" data-category="core">
+          <div class="timeline-dot"></div>
+          <div class="timeline-card">
+            <div class="timeline-head">
+              <div class="timeline-title-wrap">
+                <span class="timeline-num">п. 6</span>
+                <h4 data-i18n-ru>Перевод языка в режим Freestanding</h4>
+                <h4 data-i18n-en>Freestanding Bare-Metal Mode</h4>
+              </div>
+              <span class="timeline-status">
+                <svg viewBox="0 0 24 24" fill="none" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+                <span>Complete</span>
+              </span>
+            </div>
+            <div class="timeline-body">
+              <p data-i18n-ru>Полная независимость от стандартных библиотек C++ (работа без libc / libc++ / iostream через модуль аппаратной абстракции GrassHAL). Ядро готово к выполнению в bare-metal окружении, микроконтроллерах и загрузчиках ОС.</p>
+              <p data-i18n-en>Zero dependency on libc or iostream via GrassHAL abstraction layer, ready for OS loaders and embedded targets.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- 7 -->
+        <div class="timeline-item" data-category="core">
+          <div class="timeline-dot"></div>
+          <div class="timeline-card">
+            <div class="timeline-head">
+              <div class="timeline-title-wrap">
+                <span class="timeline-num">п. 7</span>
+                <h4 data-i18n-ru>Табличная диспетчеризация (Dispatch Table)</h4>
+                <h4 data-i18n-en>Table-Based Dispatch (Dispatch Table)</h4>
+              </div>
+              <span class="timeline-status">
+                <svg viewBox="0 0 24 24" fill="none" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+                <span>Complete</span>
+              </span>
+            </div>
+            <div class="timeline-body">
+              <p data-i18n-ru>Уход от медленного цикла `while(switch)`. Массив прямых указателей на обработчики опкодов для мгновенного перехода между инструкциями виртуальной машины.</p>
+              <p data-i18n-en>Replaces branch-heavy switch constructs with a direct array of opcode function pointers.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- 8 -->
+        <div class="timeline-item" data-category="compiler">
+          <div class="timeline-dot"></div>
+          <div class="timeline-card">
+            <div class="timeline-head">
+              <div class="timeline-title-wrap">
+                <span class="timeline-num">п. 8</span>
+                <h4 data-i18n-ru>Склейка AST и разрешение зависимостей (Import Pass)</h4>
+                <h4 data-i18n-en>AST Merging &amp; Dependency Resolution (Import Pass)</h4>
+              </div>
+              <span class="timeline-status">
+                <svg viewBox="0 0 24 24" fill="none" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+                <span>Complete</span>
+              </span>
+            </div>
+            <div class="timeline-body">
+              <p data-i18n-ru>Разрешение зависимостей на этапе построения дерева с рекурсивным обходом, канонической нормализацией путей, семантикой `#pragma once` (защита от циклов и ромбовидных импортов) и поддержкой RamFS.</p>
+              <p data-i18n-en>Recursive dependency resolution, path canonicalization, `#pragma once` diamond protection, and RamFS support.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- 9 -->
+        <div class="timeline-item" data-category="compiler">
+          <div class="timeline-dot"></div>
+          <div class="timeline-card">
+            <div class="timeline-head">
+              <div class="timeline-title-wrap">
+                <span class="timeline-num">п. 9</span>
+                <h4 data-i18n-ru>Bytecode Layout &amp; Fusion Optimizer</h4>
+                <h4 data-i18n-en>Bytecode Layout &amp; Fusion Optimizer</h4>
+              </div>
+              <span class="timeline-status">
+                <svg viewBox="0 0 24 24" fill="none" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+                <span>Complete</span>
+              </span>
+            </div>
+            <div class="timeline-body">
+              <p data-i18n-ru>Многопроходный оптимизатор: Opcode Fusion (слияние цепочек констант и арифметики в `OP_ADD_CONST`, инкрементов в `OP_INC_VAR`), Constant Folding, Dead Code Elimination и Jump Relocation. Ускорение циклов в 2.6 раза при `-O3`.</p>
+              <p data-i18n-en>Multi-pass optimizer: opcode fusion, constant folding, dead-code elimination, and jump relocation delivering 2.6x loop speedup.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- 10 -->
+        <div class="timeline-item" data-category="syntax">
+          <div class="timeline-dot"></div>
+          <div class="timeline-card">
+            <div class="timeline-head">
+              <div class="timeline-title-wrap">
+                <span class="timeline-num">п. 10</span>
+                <h4 data-i18n-ru>Пользовательские структуры: `struct`</h4>
+                <h4 data-i18n-en>User Structures: `struct`</h4>
+              </div>
+              <span class="timeline-status">
+                <svg viewBox="0 0 24 24" fill="none" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+                <span>Complete</span>
+              </span>
+            </div>
+            <div class="timeline-body">
+              <p data-i18n-ru>Синтаксис объявления составных типов данных (`struct Player { hp: u32, x: u64 }`) с расчетом смещения полей в байтах на этапе компиляции и прямым доступом через точку.</p>
+              <p data-i18n-en>Custom compound types with compile-time byte offset calculations and dot-notation access.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- 11 -->
+        <div class="timeline-item" data-category="syntax">
+          <div class="timeline-dot"></div>
+          <div class="timeline-card">
+            <div class="timeline-head">
+              <div class="timeline-title-wrap">
+                <span class="timeline-num">п. 11</span>
+                <h4 data-i18n-ru>Настоящий импорт файлов: `import` / `include`</h4>
+                <h4 data-i18n-en>Modular File Imports: `import` / `include`</h4>
+              </div>
+              <span class="timeline-status">
+                <svg viewBox="0 0 24 24" fill="none" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+                <span>Complete</span>
+              </span>
+            </div>
+            <div class="timeline-body">
+              <p data-i18n-ru>Поддержка полноценных модулей на самом языке `.grass`: синтаксисы `import "module.grass";`, `include "module";`, `#include &lt;module.grass&gt;` со сквозным вызовом структур и функций из `main()`.</p>
+              <p data-i18n-en>Write re-usable modules directly in `.grass` files with seamless cross-module function and struct calls.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- 12 -->
+        <div class="timeline-item" data-category="core">
+          <div class="timeline-dot"></div>
+          <div class="timeline-card">
+            <div class="timeline-head">
+              <div class="timeline-title-wrap">
+                <span class="timeline-num">п. 12</span>
+                <h4 data-i18n-ru>Многопоточность: `thread` / `async`</h4>
+                <h4 data-i18n-en>Concurrency: `thread` / `async`</h4>
+              </div>
+              <span class="timeline-status">
+                <svg viewBox="0 0 24 24" fill="none" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+                <span>Complete</span>
+              </span>
+            </div>
+            <div class="timeline-body">
+              <p data-i18n-ru>Асинхронные задачи и системные потоки операционной системы: `thread(fn, args)`, `thread_join`, `async fn();`, мьютексы `mutex_create/lock/unlock` и разделяемая среда `GrassSharedEnv` с защитой от гонок.</p>
+              <p data-i18n-en>Native OS threads, async dispatch, thread synchronization joins, mutex primitives, and shared race-protected memory.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- 13 -->
+        <div class="timeline-item" data-category="dx">
+          <div class="timeline-dot"></div>
+          <div class="timeline-card">
+            <div class="timeline-head">
+              <div class="timeline-title-wrap">
+                <span class="timeline-num">п. 13</span>
+                <h4 data-i18n-ru>Официальное расширение для Visual Studio Code</h4>
+                <h4 data-i18n-en>Official Visual Studio Code Extension</h4>
+              </div>
+              <span class="timeline-status">
+                <svg viewBox="0 0 24 24" fill="none" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+                <span>Complete</span>
+              </span>
+            </div>
+            <div class="timeline-body">
+              <p data-i18n-ru>Собранный установочный пакет `.vsix` (`grassgreen-4.0.0.vsix`): полная TextMate подсветка, иконки для файлов `.grass` и `.gdb`, сниппеты кода и поддержка горячих клавиш сборки.</p>
+              <p data-i18n-en>Packaged `grassgreen-4.0.0.vsix` extension bundle containing full language grammar, icons, and snippets.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- 14 -->
+        <div class="timeline-item" data-category="core">
+          <div class="timeline-dot"></div>
+          <div class="timeline-card">
+            <div class="timeline-head">
+              <div class="timeline-title-wrap">
+                <span class="timeline-num">п. 14</span>
+                <h4 data-i18n-ru>Представление значений через NaN-Boxing</h4>
+                <h4 data-i18n-en>Value Representation via NaN-Boxing</h4>
+              </div>
+              <span class="timeline-status">
+                <svg viewBox="0 0 24 24" fill="none" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+                <span>Complete</span>
+              </span>
+            </div>
+            <div class="timeline-body">
+              <p data-i18n-ru>Упаковка чисел, булевых флагов, указателей и дескрипторов в плоский 64-битный формат IEEE 754 (ровно 8 байт). Двукратное сокращение нагрузки на L1-кэш процессора и ускорение вызовов функций.</p>
+              <p data-i18n-en>Strict 8-byte IEEE 754 representation for numbers, booleans, pointers, and objects with 2x cache efficiency.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- 15 -->
+        <div class="timeline-item" data-category="core">
+          <div class="timeline-dot"></div>
+          <div class="timeline-card">
+            <div class="timeline-head">
+              <div class="timeline-title-wrap">
+                <span class="timeline-num">п. 15</span>
+                <h4 data-i18n-ru>Аллокатор памяти: Arena Allocator</h4>
+                <h4 data-i18n-en>Arena Allocator (Bump Pointer)</h4>
+              </div>
+              <span class="timeline-status">
+                <svg viewBox="0 0 24 24" fill="none" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+                <span>Complete</span>
+              </span>
+            </div>
+            <div class="timeline-body">
+              <p data-i18n-ru>Линейное выделение непрерывного пула памяти под AST и байт-код со сдвигом указателя. Мгновенное освобождение памяти модулей в O(1) без фрагментации, вызовов malloc/free и утечек ресурсов.</p>
+              <p data-i18n-en>Continuous memory pool allocation with pointer increments and zero-fragmentation O(1) deallocation.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- 16 -->
+        <div class="timeline-item" data-category="core">
+          <div class="timeline-dot"></div>
+          <div class="timeline-card">
+            <div class="timeline-head">
+              <div class="timeline-title-wrap">
+                <span class="timeline-num">п. 16</span>
+                <h4 data-i18n-ru>Диспетчеризация через Labels-as-Values</h4>
+                <h4 data-i18n-en>Labels-as-Values Dispatch (Computed Goto)</h4>
+              </div>
+              <span class="timeline-status">
+                <svg viewBox="0 0 24 24" fill="none" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+                <span>Complete</span>
+              </span>
+            </div>
+            <div class="timeline-body">
+              <p data-i18n-ru>Механизм `goto *dispatch_table[op]` для прямого прыжка из конца текущей инструкции в начало следующей. Процессор использует таблицу предсказания переходов без задержек центрального цикла.</p>
+              <p data-i18n-en>Direct `goto *dispatch_table[op]` jumps eliminating central branch-prediction bottlenecks in VM execution.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- 17 -->
+        <div class="timeline-item" data-category="syntax">
+          <div class="timeline-dot"></div>
+          <div class="timeline-card">
+            <div class="timeline-head">
+              <div class="timeline-title-wrap">
+                <span class="timeline-num">п. 17</span>
+                <h4 data-i18n-ru>Оптимизация расположения структур: C-ABI Data Alignment</h4>
+                <h4 data-i18n-en>C-ABI Data Alignment</h4>
+              </div>
+              <span class="timeline-status">
+                <svg viewBox="0 0 24 24" fill="none" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+                <span>Complete</span>
+              </span>
+            </div>
+            <div class="timeline-body">
+              <p data-i18n-ru>Выравнивание полей структур по естественным границам адресов (1, 4, 8 байт). 100% совместимость компоновки памяти структур с нативными драйверами и кодом на C/C++.</p>
+              <p data-i18n-en>Exact 1, 4, and 8-byte field alignment conforming strictly to native C-ABI struct layouts.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- 18 -->
+        <div class="timeline-item" data-category="core">
+          <div class="timeline-dot"></div>
+          <div class="timeline-card">
+            <div class="timeline-head">
+              <div class="timeline-title-wrap">
+                <span class="timeline-num">п. 18</span>
+                <h4 data-i18n-ru>Аппаратный доступ к физической памяти: MMIO и `volatile`</h4>
+                <h4 data-i18n-en>Hardware MMIO &amp; Volatile Access</h4>
+              </div>
+              <span class="timeline-status">
+                <svg viewBox="0 0 24 24" fill="none" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+                <span>Complete</span>
+              </span>
+            </div>
+            <div class="timeline-body">
+              <p data-i18n-ru>Прямое чтение и запись физических адресов памяти (`mmio_read8..64`, `mmio_write8..64`), порты x86 (`inb`/`outb`), квалификатор `volatile` и барьеры сериализации памяти mfence/lfence/sfence.</p>
+              <p data-i18n-en>Direct MMIO read/writes, x86 Port I/O instructions, `volatile` variable qualifiers, and hardware memory fence instructions.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- 19 -->
+        <div class="timeline-item" data-category="dx">
+          <div class="timeline-dot"></div>
+          <div class="timeline-card">
+            <div class="timeline-head">
+              <div class="timeline-title-wrap">
+                <span class="timeline-num">п. 19</span>
+                <h4 data-i18n-ru>Ребрендинг экосистемы: `G&amp;G`</h4>
+                <h4 data-i18n-en>Ecosystem Rebranding: `G&amp;G`</h4>
+              </div>
+              <span class="timeline-status">
+                <svg viewBox="0 0 24 24" fill="none" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+                <span>Complete</span>
+              </span>
+            </div>
+            <div class="timeline-body">
+              <p data-i18n-ru>Официальное сокращённое наименование проекта: **G&amp;G** (*Grass &amp; Green*). Бинарник компилятора в терминале — **`grg`** (в среде Windows — `grg.exe` / `grassc.exe`).</p>
+              <p data-i18n-en>Unified ecosystem naming: G&amp;G with primary compiler CLI binary command `grg`.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- 20 -->
+        <div class="timeline-item" data-category="compiler">
+          <div class="timeline-dot"></div>
+          <div class="timeline-card">
+            <div class="timeline-head">
+              <div class="timeline-title-wrap">
+                <span class="timeline-num">п. 20</span>
+                <h4 data-i18n-ru>Флаги командной строки компилятора `grg`</h4>
+                <h4 data-i18n-en>Compiler CLI Flags</h4>
+              </div>
+              <span class="timeline-status">
+                <svg viewBox="0 0 24 24" fill="none" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+                <span>Complete</span>
+              </span>
+            </div>
+            <div class="timeline-body">
+              <p data-i18n-ru>Богатый набор управляющих опций компилятора: `-o <имя>`, `-c` (только байт-код), `-emit-exe` (автономный бинарник), `-O0..-O3`, `--dump-ast`, `-S` (дизассемблер), `--time` (замер миллисекунд этапов), `--freestanding`, `--ru` / `--en`.</p>
+              <p data-i18n-en>Comprehensive flags: `-o`, `-c`, `-emit-exe`, `-O0..-O3`, `--dump-ast`, `-S`, `--time`, `--freestanding`, `--ru`/`--en`.</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       Documentation Quick Hub
+       ============================================================ -->
+  <section class="docs-section" id="docs">
+    <div class="container">
+      <div class="section-head">
+        <span class="section-tag">Documentation Hub</span>
+        <h2 data-i18n-ru>Официальная документация</h2>
+        <h2 data-i18n-en>Official Documentation</h2>
+        <p data-i18n-ru>Полные справочные руководства по каждой подсистеме языка в репозитории проекта.</p>
+        <p data-i18n-en>Comprehensive guides and specifications across all subsystems in the GitHub repository.</p>
+      </div>
+
+      <div class="docs-quick-grid">
+        <div class="doc-quick-card">
+          <div class="doc-quick-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+              <polyline points="14 2 14 8 20 8"/>
+              <line x1="16" y1="13" x2="8" y2="13"/>
+              <line x1="16" y1="17" x2="8" y2="17"/>
+            </svg>
+          </div>
+          <h4 data-i18n-ru>Спецификация ядра (docs/main.md)</h4>
+          <h4 data-i18n-en>Core Language Spec (docs/main.md)</h4>
+          <p data-i18n-ru>Синтаксис функций `take`, поток вывода `gout`, ввод `gin`, структуры `struct`, динамические массивы и системные вызовы.</p>
+          <p data-i18n-en>Function declarations, `gout`/`gin` stream mechanics, `struct` types, arrays, and Win32 system interop.</p>
+          <a href="https://github.com/m1oky/GrassGreen/blob/main/docs/main.md" target="_blank" rel="noopener noreferrer" class="doc-quick-link">
+            <span data-i18n-ru>Открыть спецификацию</span>
+            <span data-i18n-en>Open Specification</span>
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+          </a>
+        </div>
+
+        <div class="doc-quick-card">
+          <div class="doc-quick-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polygon points="12 2 2 7 12 12 22 7 12 2"/>
+              <polyline points="2 17 12 22 22 17"/>
+              <polyline points="2 12 12 17 22 12"/>
+            </svg>
+          </div>
+          <h4 data-i18n-ru>Справочник библиотек (docs/library.md)</h4>
+          <h4 data-i18n-en>Library Directory (docs/library.md)</h4>
+          <p data-i18n-ru>Полный перечень всех 18 стандартных библиотек с директивами подключения `!name!` и описанием назначения каждого модуля.</p>
+          <p data-i18n-en>Complete breakdown of all 18 standard modules, import syntax directives, and capabilities.</p>
+          <a href="https://github.com/m1oky/GrassGreen/blob/main/docs/library.md" target="_blank" rel="noopener noreferrer" class="doc-quick-link">
+            <span data-i18n-ru>Открыть справочник</span>
+            <span data-i18n-en>Open Directory</span>
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+          </a>
+        </div>
+
+        <div class="doc-quick-card">
+          <div class="doc-quick-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="2" y="3" width="20" height="14" rx="2" ry="2"/>
+              <line x1="8" y1="21" x2="16" y2="21"/>
+              <line x1="12" y1="17" x2="12" y2="21"/>
+            </svg>
+          </div>
+          <h4 data-i18n-ru>Win32 GUI &amp; 2D Движок</h4>
+          <h4 data-i18n-en>Win32 GUI &amp; 2D Graphics</h4>
+          <p data-i18n-ru>Документация оконного интерфейса `!interface!` и графического холста `!2DGraphics!` с двойной буферизацией и коллизиями.</p>
+          <p data-i18n-en>Guides for native window rendering, controls, double-buffered canvases, and 2D collision detection.</p>
+          <a href="https://github.com/m1oky/GrassGreen/blob/main/docs/interface.md" target="_blank" rel="noopener noreferrer" class="doc-quick-link">
+            <span data-i18n-ru>Открыть руководство GUI</span>
+            <span data-i18n-en>Open GUI Guide</span>
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       Footer
+       ============================================================ -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-top">
+        <div class="footer-brand-wrap">
+          <div class="footer-logo">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" aria-hidden="true">
+              <defs>
+                <linearGradient id="footerGgGrad" x1="0%" y1="100%" x2="100%" y2="0%">
+                  <stop offset="0%" stop-color="#15803d"/>
+                  <stop offset="100%" stop-color="#22c55e"/>
+                </linearGradient>
+              </defs>
+              <rect x="8" y="8" width="112" height="112" rx="28" fill="#0c0f0d" stroke="url(#footerGgGrad)" stroke-width="6"/>
+              <path d="M40 88 C40 52, 68 36, 88 28 C76 54, 72 72, 74 92" fill="none" stroke="url(#footerGgGrad)" stroke-width="10" stroke-linecap="round"/>
+              <path d="M36 92 C52 72, 72 64, 92 60" fill="none" stroke="#22c55e" stroke-width="8" stroke-linecap="round"/>
+              <circle cx="88" cy="28" r="6" fill="#4ade80"/>
+            </svg>
+            <span class="footer-logo-title">GrassGreen (G&amp;G)</span>
+          </div>
+          <p class="footer-desc" data-i18n-ru>Высокопроизводительный байткод-язык системного уровня с синтаксисом C++, собственной виртуальной машиной Direct-Threaded VM и упаковкой в Win32 PE .exe.</p>
+          <p class="footer-desc" data-i18n-en>High-performance system-level bytecode language with C++ syntax, proprietary Direct-Threaded VM, and native Win32 PE .exe packaging.</p>
+        </div>
+
+        <div class="footer-col-group">
+          <div class="footer-col">
+            <h5 data-i18n-ru>Проект</h5>
+            <h5 data-i18n-en>Project</h5>
+            <ul>
+              <li><a href="https://github.com/m1oky/GrassGreen" target="_blank" rel="noopener noreferrer">GitHub Репозиторий</a></li>
+              <li><a href="https://github.com/m1oky/GrassGreen/releases" target="_blank" rel="noopener noreferrer">Релизы компилятора</a></li>
+              <li><a href="https://github.com/m1oky/GrassGreen/blob/main/LICENSE" target="_blank" rel="noopener noreferrer">Лицензия MIT</a></li>
+              <li><a href="https://grassgreen.info" target="_blank" rel="noopener noreferrer">Домен grassgreen.info</a></li>
+              <li><a href="https://www.donationalerts.com/r/m1oky" target="_blank" rel="noopener noreferrer"><span data-i18n-ru>Поддержать проект (Донат)</span><span data-i18n-en>Support Project (Donate)</span></a></li>
+            </ul>
+          </div>
+
+          <div class="footer-col">
+            <h5 data-i18n-ru>Документация</h5>
+            <h5 data-i18n-en>Documentation</h5>
+            <ul>
+              <li><a href="https://github.com/m1oky/GrassGreen/blob/main/docs/main.md" target="_blank" rel="noopener noreferrer">Спецификация ядра</a></li>
+              <li><a href="https://github.com/m1oky/GrassGreen/blob/main/docs/library.md" target="_blank" rel="noopener noreferrer">Каталог библиотек</a></li>
+              <li><a href="https://github.com/m1oky/GrassGreen/blob/main/plans/ROADMAP.md" target="_blank" rel="noopener noreferrer">Роадмап v4.0 (20 пунктов)</a></li>
+              <li><a href="https://github.com/m1oky/GrassGreen/blob/main/docs/mmio.md" target="_blank" rel="noopener noreferrer">Аппаратный доступ MMIO</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <div>&copy; 2026 GrassGreen Project. Разработчик: m1oky</div>
+        <div class="footer-meta">
+          <span>License: MIT</span>
+          <span>Release: v4.0</span>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Toast Notice Widget -->
+  <div class="toast-notice" id="toastNotice" role="alert" aria-live="polite">
+    <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <polyline points="20 6 9 17 4 12"/>
+    </svg>
+    <span class="toast-msg">Команда скопирована!</span>
+  </div>
+
+  <script src="js/main.js"></script>
+</body>
+</html>

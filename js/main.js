@@ -217,7 +217,9 @@ document.addEventListener('DOMContentLoaded', () => {
         }
       });
 
-      if (libCountElem) libCountElem.textContent = visible;
+      document.querySelectorAll('.lib-visible-count').forEach(el => {
+        el.textContent = visible;
+      });
     });
   }
 
@@ -232,8 +234,8 @@ document.addEventListener('DOMContentLoaded', () => {
       btn.classList.add('active');
 
       timelineItems.forEach(item => {
-        const itemCat = item.dataset.category;
-        if (category === 'all' || itemCat === category) {
+        const itemCat = item.dataset.category || '';
+        if (category === 'all' || itemCat === category || itemCat.split(' ').includes(category)) {
           item.style.display = 'block';
         } else {
           item.style.display = 'none';

@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>GrassGreen (G&G) — Высокопроизводительный байткод-язык системного уровня</title>
-  <meta name="description" content="Официальный сайт и документация GrassGreen (G&G) v4.0. C++ синтаксис, собственная Direct-Threaded Stack VM, упаковка в Win32 PE .exe, JIT, Arena Allocator и Freestanding режим.">
+  <meta name="description" content="Официальный сайт и документация GrassGreen (G&G) v4.1. C++ синтаксис, собственная Direct-Threaded Stack VM, упаковка в Win32 PE .exe и Linux ELF, векторный GUI VD+, аудио-движок !audio!, JIT, Arena Allocator и Freestanding режим.">
   <link rel="icon" type="image/svg+xml" href="assets/logo.svg">
   <link rel="stylesheet" href="css/style.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -34,7 +34,7 @@
         </svg>
         <div class="header-brand-text">
           <span class="header-brand-name">GrassGreen</span>
-          <span class="header-brand-tag">G&amp;G v4.0</span>
+          <span class="header-brand-tag">G&amp;G v4.1</span>
         </div>
       </a>
 
@@ -48,8 +48,8 @@
           <span data-i18n-en>Libraries</span>
         </a>
         <a href="#roadmap">
-          <span data-i18n-ru>Роадмап v4.0</span>
-          <span data-i18n-en>Roadmap v4.0</span>
+          <span data-i18n-ru>Роадмап v4.1</span>
+          <span data-i18n-en>Roadmap v4.1</span>
         </a>
         <a href="#docs">
           <span data-i18n-ru>Документация</span>
@@ -106,11 +106,11 @@
     <div class="hero-glow-bg"></div>
     <div class="container hero-content">
       <div class="hero-pill">
-        <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
         </svg>
-        <span data-i18n-ru>Ядро версии 4.0: The Evolution</span>
-        <span data-i18n-en>Core v4.0 Release: The Evolution</span>
+        <span data-i18n-ru>Релиз версии 4.1: VD+ GUI, !audio! &amp; Linux</span>
+        <span data-i18n-en>Release v4.1: VD+ GUI, !audio! &amp; Linux</span>
       </div>
 
       <h1 data-i18n-ru>Высокопроизводительный байткод-язык системного уровня</h1>
@@ -119,11 +119,14 @@
       <p class="hero-sub">
         <span>C++ синтаксис</span>
         <span class="dot-sep">·</span>
-        <span data-i18n-ru>Собственная Stack VM</span>
-        <span data-i18n-en>Proprietary Stack VM</span>
+        <span data-i18n-ru>Direct-Threaded VM</span>
+        <span data-i18n-en>Direct-Threaded VM</span>
         <span class="dot-sep">·</span>
-        <span data-i18n-ru>Нативная сборка в Win32 PE .exe</span>
-        <span data-i18n-en>Native Win32 PE .exe Packing</span>
+        <span data-i18n-ru>Векторный GUI VD+</span>
+        <span data-i18n-en>VD+ Vector GUI</span>
+        <span class="dot-sep">·</span>
+        <span data-i18n-ru>Сборка Win32 PE .exe &amp; Linux ELF</span>
+        <span data-i18n-en>Native Win32 PE .exe &amp; Linux ELF</span>
       </p>
 
       <div class="hero-actions">
@@ -133,8 +136,8 @@
             <polyline points="7 10 12 15 17 10"/>
             <line x1="12" y1="15" x2="12" y2="3"/>
           </svg>
-          <span data-i18n-ru>Скачать компилятор grg (v4.0)</span>
-          <span data-i18n-en>Download grg Compiler (v4.0)</span>
+          <span data-i18n-ru>Скачать компилятор grg (v4.1)</span>
+          <span data-i18n-en>Download grg Compiler (v4.1)</span>
         </a>
 
         <a href="#docs" class="btn-secondary">
@@ -154,13 +157,17 @@
             <span data-i18n-ru>Запуск в VM</span>
             <span data-i18n-en>Run in VM</span>
           </button>
-          <button type="button" class="term-mode-btn" data-cmd="grg -emit-exe main.grass -o app.exe">
-            <span data-i18n-ru>Сборка .exe</span>
-            <span data-i18n-en>Build .exe</span>
+          <button type="button" class="term-mode-btn" data-cmd="grg -emit-exe main.grass -o app">
+            <span data-i18n-ru>Сборка EXE/ELF</span>
+            <span data-i18n-en>Build EXE/ELF</span>
+          </button>
+          <button type="button" class="term-mode-btn" data-cmd="./install.sh">
+            <span data-i18n-ru>Linux Install</span>
+            <span data-i18n-en>Linux Install</span>
           </button>
           <button type="button" class="term-mode-btn" data-cmd="setup.exe /silent">
-            <span data-i18n-ru>Установка</span>
-            <span data-i18n-en>Install</span>
+            <span data-i18n-ru>Windows Setup</span>
+            <span data-i18n-en>Windows Setup</span>
           </button>
         </div>
 
@@ -221,6 +228,13 @@
               </svg>
               <span>gui_window.grass</span>
             </button>
+            <button type="button" class="code-tab-btn" data-tab="audio" role="tab">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
+                <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"/>
+              </svg>
+              <span>audio_synth.grass</span>
+            </button>
           </div>
 
           <div class="code-actions-top">
@@ -243,10 +257,10 @@
 <span class="tok-com">// Быстрый старт: точка входа main() и потоковый вывод gout</span>
 <span class="tok-kw">int</span> <span class="tok-fn">main</span>() {
     <span class="tok-kw">take</span> project = <span class="tok-str">"GrassGreen"</span>;
-    <span class="tok-kw">take</span> version = <span class="tok-num">4.0</span>;
+    <span class="tok-kw">take</span> version = <span class="tok-num">4.1</span>;
 
     <span class="tok-pipe">gout</span> <span class="tok-op">&lt;&lt;</span> <span class="tok-str">"Добро пожаловать в "</span> <span class="tok-op">&lt;&lt;</span> project <span class="tok-op">&lt;&lt;</span> <span class="tok-str">" v"</span> <span class="tok-op">&lt;&lt;</span> version <span class="tok-op">&lt;&lt;</span> <span class="tok-pipe">endl</span>;
-    <span class="tok-pipe">gout</span> <span class="tok-op">&lt;&lt;</span> <span class="tok-str">"Stack VM Direct-Threaded Dispatcher активен."</span> <span class="tok-op">&lt;&lt;</span> <span class="tok-pipe">endl</span>;
+    <span class="tok-pipe">gout</span> <span class="tok-op">&lt;&lt;</span> <span class="tok-str">"Direct-Threaded Dispatcher &amp; VD+ Engine активны."</span> <span class="tok-op">&lt;&lt;</span> <span class="tok-pipe">endl</span>;
 
     <span class="tok-kw">return</span> <span class="tok-num">0</span>;
 }</code></pre>
@@ -255,10 +269,10 @@
 <span class="tok-com">// Quick start: main() entry point and gout stream I/O</span>
 <span class="tok-kw">int</span> <span class="tok-fn">main</span>() {
     <span class="tok-kw">take</span> project = <span class="tok-str">"GrassGreen"</span>;
-    <span class="tok-kw">take</span> version = <span class="tok-num">4.0</span>;
+    <span class="tok-kw">take</span> version = <span class="tok-num">4.1</span>;
 
     <span class="tok-pipe">gout</span> <span class="tok-op">&lt;&lt;</span> <span class="tok-str">"Welcome to "</span> <span class="tok-op">&lt;&lt;</span> project <span class="tok-op">&lt;&lt;</span> <span class="tok-str">" v"</span> <span class="tok-op">&lt;&lt;</span> version <span class="tok-op">&lt;&lt;</span> <span class="tok-pipe">endl</span>;
-    <span class="tok-pipe">gout</span> <span class="tok-op">&lt;&lt;</span> <span class="tok-str">"Stack VM Direct-Threaded Dispatcher is active."</span> <span class="tok-op">&lt;&lt;</span> <span class="tok-pipe">endl</span>;
+    <span class="tok-pipe">gout</span> <span class="tok-op">&lt;&lt;</span> <span class="tok-str">"Direct-Threaded Dispatcher &amp; VD+ Engine are active."</span> <span class="tok-op">&lt;&lt;</span> <span class="tok-pipe">endl</span>;
 
     <span class="tok-kw">return</span> <span class="tok-num">0</span>;
 }</code></pre>
@@ -312,50 +326,100 @@
 }</code></pre>
           </div>
 
-          <!-- Snippet 3: gui_window.grass -->
+          <!-- Snippet 3: gui_window.grass (VD+ Engine) -->
           <div class="code-snippet-panel" id="snippet-gui">
             <pre data-i18n-ru><code><span class="tok-dir">!GrassGreen!</span>
 <span class="tok-dir">!interface!</span>
 
-<span class="tok-com">// Нативный оконный интерфейс Win32 / GDI+ без сторонних рантаймов</span>
+<span class="tok-com">// Векторный GUI-движок VD+: субпиксельный рендеринг, скругление DWM, табы и часы</span>
 <span class="tok-kw">int</span> <span class="tok-fn">main</span>() {
-    <span class="tok-fn">window</span>();
-    <span class="tok-fn">title</span>(<span class="tok-str">"GrassGreen 4.0 Native GUI"</span>);
-    <span class="tok-fn">size</span>(<span class="tok-num">480</span>, <span class="tok-num">320</span>);
-    <span class="tok-fn">theme</span>(<span class="tok-str">"dark"</span>);
-    <span class="tok-fn">color</span>(<span class="tok-str">"#09090b"</span>);
+    <span class="tok-fn">window</span> {
+        <span class="tok-fn">auto_size_display</span>();        <span class="tok-com">// Адаптивный расчет 2K/4K и Windows DPI</span>
+        <span class="tok-fn">border-radius-app</span>(<span class="tok-num">16</span>);       <span class="tok-com">// Скругление углов всего окна</span>
+        <span class="tok-fn">header</span>(<span class="tok-str">"emerald"</span>);          <span class="tok-com">// Шапка: emerald, native, glass, modern</span>
+        <span class="tok-fn">title</span>(<span class="tok-str">"GrassGreen 4.1 VD+ Studio"</span>);
+        <span class="tok-fn">size</span>(<span class="tok-num">640</span>, <span class="tok-num">480</span>);
+        <span class="tok-fn">theme</span>(<span class="tok-str">"dark"</span>);
+        <span class="tok-fn">clock</span>();                    <span class="tok-com">// Синхронный виджет системных часов</span>
 
-    <span class="tok-fn">label</span>(<span class="tok-str">"Автономный Win32 GUI движок"</span>);
-    <span class="tok-fn">font-size</span>(<span class="tok-num">16</span>);
-    <span class="tok-fn">middle</span>();
-
-    <span class="tok-fn">button</span>(<span class="tok-str">"Собрать в .exe"</span>);
-    <span class="tok-fn">button-color</span>(<span class="tok-str">"#15803d"</span>);
-    <span class="tok-fn">radius</span>(<span class="tok-num">8</span>);
-
-    <span class="tok-fn">show</span>;
+        <span class="tok-kw">tab</span> = <span class="tok-str">"Главная"</span> {
+            <span class="tok-fn">label</span> <span class="tok-str">"GrassGreen VD+ Vector Engine"</span> {
+                <span class="tok-fn">middle</span>();
+                <span class="tok-fn">text-color</span>(<span class="tok-str">"#22c55e"</span>);
+            }
+            <span class="tok-fn">button</span> <span class="tok-str">"Открыть профиль -&gt;"</span> {
+                <span class="tok-fn">middle</span>();
+                <span class="tok-fn">radius</span>(<span class="tok-num">10</span>);
+                <span class="tok-fn">switch</span>(<span class="tok-str">"Профиль"</span>);   <span class="tok-com">// Мгновенное переключение вкладки</span>
+            }
+        }
+    }
     <span class="tok-kw">return</span> <span class="tok-num">0</span>;
 }</code></pre>
             <pre data-i18n-en><code><span class="tok-dir">!GrassGreen!</span>
 <span class="tok-dir">!interface!</span>
 
-<span class="tok-com">// Native Win32 / GDI+ window UI without external runtimes</span>
+<span class="tok-com">// Next-gen VD+ Vector GUI: subpixel rendering, DWM rounding, tabs and clock</span>
 <span class="tok-kw">int</span> <span class="tok-fn">main</span>() {
-    <span class="tok-fn">window</span>();
-    <span class="tok-fn">title</span>(<span class="tok-str">"GrassGreen 4.0 Native GUI"</span>);
-    <span class="tok-fn">size</span>(<span class="tok-num">480</span>, <span class="tok-num">320</span>);
-    <span class="tok-fn">theme</span>(<span class="tok-str">"dark"</span>);
-    <span class="tok-fn">color</span>(<span class="tok-str">"#09090b"</span>);
+    <span class="tok-fn">window</span> {
+        <span class="tok-fn">auto_size_display</span>();        <span class="tok-com">// Adaptive 2K/4K &amp; Windows DPI scaling</span>
+        <span class="tok-fn">border-radius-app</span>(<span class="tok-num">16</span>);       <span class="tok-com">// Smooth app window corner rounding</span>
+        <span class="tok-fn">header</span>(<span class="tok-str">"emerald"</span>);          <span class="tok-com">// Header: emerald, native, glass, modern</span>
+        <span class="tok-fn">title</span>(<span class="tok-str">"GrassGreen 4.1 VD+ Studio"</span>);
+        <span class="tok-fn">size</span>(<span class="tok-num">640</span>, <span class="tok-num">480</span>);
+        <span class="tok-fn">theme</span>(<span class="tok-str">"dark"</span>);
+        <span class="tok-fn">clock</span>();                    <span class="tok-com">// Real-time hardware clock widget</span>
 
-    <span class="tok-fn">label</span>(<span class="tok-str">"Standalone Win32 GUI Engine"</span>);
-    <span class="tok-fn">font-size</span>(<span class="tok-num">16</span>);
-    <span class="tok-fn">middle</span>();
+        <span class="tok-kw">tab</span> = <span class="tok-str">"Main"</span> {
+            <span class="tok-fn">label</span> <span class="tok-str">"GrassGreen VD+ Vector Engine"</span> {
+                <span class="tok-fn">middle</span>();
+                <span class="tok-fn">text-color</span>(<span class="tok-str">"#22c55e"</span>);
+            }
+            <span class="tok-fn">button</span> <span class="tok-str">"Open Profile -&gt;"</span> {
+                <span class="tok-fn">middle</span>();
+                <span class="tok-fn">radius</span>(<span class="tok-num">10</span>);
+                <span class="tok-fn">switch</span>(<span class="tok-str">"Profile"</span>);   <span class="tok-com">// Instant tab transition</span>
+            }
+        }
+    }
+    <span class="tok-kw">return</span> <span class="tok-num">0</span>;
+}</code></pre>
+          </div>
 
-    <span class="tok-fn">button</span>(<span class="tok-str">"Build to .exe"</span>);
-    <span class="tok-fn">button-color</span>(<span class="tok-str">"#15803d"</span>);
-    <span class="tok-fn">radius</span>(<span class="tok-num">8</span>);
+          <!-- Snippet 4: audio_synth.grass (!audio! Engine) -->
+          <div class="code-snippet-panel" id="snippet-audio">
+            <pre data-i18n-ru><code><span class="tok-dir">!GrassGreen!</span>
+<span class="tok-dir">!audio!</span>
 
-    <span class="tok-fn">show</span>;
+<span class="tok-com">// Нативный аудио-движок: синтез волн (PCM 44.1 кГц) и воспроизведение файлов</span>
+<span class="tok-kw">int</span> <span class="tok-fn">main</span>() {
+    <span class="tok-pipe">gout</span> <span class="tok-op">&lt;&lt;</span> <span class="tok-str">"Синтез аудио в GrassGreen 4.1..."</span> <span class="tok-op">&lt;&lt;</span> <span class="tok-pipe">endl</span>;
+
+    <span class="tok-com">// 1. Синтез гармонических волн ("sine", "square", "sawtooth", "triangle")</span>
+    <span class="tok-fn">synth_play</span>(<span class="tok-str">"sine"</span>, <span class="tok-num">523</span>, <span class="tok-num">180</span>, <span class="tok-num">80</span>);     <span class="tok-com">// Чистая Нота До (523 Гц)</span>
+    <span class="tok-fn">synth_play</span>(<span class="tok-str">"square"</span>, <span class="tok-num">880</span>, <span class="tok-num">150</span>, <span class="tok-num">75</span>);   <span class="tok-com">// 8-битный ретро-звук (880 Гц)</span>
+
+    <span class="tok-com">// 2. Воспроизведение трека WAV/MP3 и управление громкостью</span>
+    <span class="tok-fn">sound_play</span>(<span class="tok-str">"sounds/notify.wav"</span>);
+    <span class="tok-fn">sound_volume</span>(<span class="tok-num">85</span>);
+
+    <span class="tok-kw">return</span> <span class="tok-num">0</span>;
+}</code></pre>
+            <pre data-i18n-en><code><span class="tok-dir">!GrassGreen!</span>
+<span class="tok-dir">!audio!</span>
+
+<span class="tok-com">// Native audio engine: PCM 44.1 kHz procedural wave synth &amp; file playback</span>
+<span class="tok-kw">int</span> <span class="tok-fn">main</span>() {
+    <span class="tok-pipe">gout</span> <span class="tok-op">&lt;&lt;</span> <span class="tok-str">"Synthesizing audio in GrassGreen 4.1..."</span> <span class="tok-op">&lt;&lt;</span> <span class="tok-pipe">endl</span>;
+
+    <span class="tok-com">// 1. Procedural waveforms ("sine", "square", "sawtooth", "triangle")</span>
+    <span class="tok-fn">synth_play</span>(<span class="tok-str">"sine"</span>, <span class="tok-num">523</span>, <span class="tok-num">180</span>, <span class="tok-num">80</span>);     <span class="tok-com">// Note C5 (523 Hz) harmonic</span>
+    <span class="tok-fn">synth_play</span>(<span class="tok-str">"square"</span>, <span class="tok-num">880</span>, <span class="tok-num">150</span>, <span class="tok-num">75</span>);   <span class="tok-com">// 8-bit retro wave (880 Hz)</span>
+
+    <span class="tok-com">// 2. WAV/MP3 file playback with volume control</span>
+    <span class="tok-fn">sound_play</span>(<span class="tok-str">"sounds/notify.wav"</span>);
+    <span class="tok-fn">sound_volume</span>(<span class="tok-num">85</span>);
+
     <span class="tok-kw">return</span> <span class="tok-num">0</span>;
 }</code></pre>
           </div>
@@ -378,7 +442,7 @@
       </div>
 
       <div class="arch-grid">
-        <!-- Card 1: Standalone PE .exe Packer -->
+        <!-- Card 1: Standalone PE .exe & Linux ELF Packer -->
         <article class="arch-card">
           <div class="arch-card-icon">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -387,12 +451,12 @@
               <line x1="12" y1="17" x2="12" y2="21"/>
             </svg>
           </div>
-          <h3 data-i18n-ru>Автономный PE .exe упаковщик</h3>
-          <h3 data-i18n-en>Standalone PE .exe Packer</h3>
-          <p data-i18n-ru>Сборка программ в самостоятельные бинарные исполняемые файлы Win32 PE. Байт-код компонуется в тело загрузчика (`-emit-exe`), позволяя запускать приложение на любом компьютере без установки сторонних сред, Node.js или Python.</p>
-          <p data-i18n-en>Compiles programs into standalone Win32 PE binary executable files. Bytecode is packed directly with the native runner (`-emit-exe`), running instantly on any machine without runtime dependencies.</p>
+          <h3 data-i18n-ru>Win32 PE &amp; Linux ELF упаковщик</h3>
+          <h3 data-i18n-en>Win32 PE &amp; Linux ELF Packer</h3>
+          <p data-i18n-ru>Сборка программ в самостоятельные бинарные исполняемые файлы Win32 PE (.exe) и самораспаковывающиеся ELF-бинарники для Linux. Байт-код компонуется в тело загрузчика (`-emit-exe`), работая автономно без внешних рантаймов, Node.js или Python.</p>
+          <p data-i18n-en>Compiles programs into standalone Win32 PE binary executable files (.exe) and self-extracting Linux ELF binaries. Bytecode is packed directly with the native runner (`-emit-exe`), running without external runtime dependencies.</p>
           <div class="arch-card-specs">
-            <span class="spec-badge">Win32 PE Loader</span>
+            <span class="spec-badge">Win32 PE &amp; Linux ELF</span>
             <span class="spec-badge">-emit-exe</span>
             <span class="spec-badge">Zero Runtime Dependency</span>
           </div>
@@ -405,8 +469,8 @@
               <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
             </svg>
           </div>
-          <h3 data-i18n-ru>Direct-Threaded VM (v4.0)</h3>
-          <h3 data-i18n-en>Direct-Threaded VM (v4.0)</h3>
+          <h3 data-i18n-ru>Direct-Threaded VM &amp; JIT</h3>
+          <h3 data-i18n-en>Direct-Threaded VM &amp; JIT</h3>
           <p data-i18n-ru>Прямая диспетчеризация инструкций через Labels-as-Values (`computed goto` / `goto *dispatch_table[op]`). Полное устранение циклов `while(switch)` и накладных расходов ветвления с аппаратным JIT-ускорением горячих циклов x86_64.</p>
           <p data-i18n-en>Instruction dispatch via Labels-as-Values (`computed goto` table pointers). Completely eliminates `switch` loops and branch overhead, paired with a native x86_64 JIT compiler for critical hot loops.</p>
           <div class="arch-card-specs">
@@ -443,7 +507,7 @@
           </div>
         </article>
 
-        <!-- Card 4: Hardware Access & Freestanding -->
+        <!-- Card 4: Cross-Platform & Freestanding -->
         <article class="arch-card">
           <div class="arch-card-icon">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -451,14 +515,14 @@
               <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/>
             </svg>
           </div>
-          <h3 data-i18n-ru>Аппаратный доступ и Freestanding</h3>
-          <h3 data-i18n-en>Hardware Access &amp; Freestanding</h3>
-          <p data-i18n-ru>Режим сборки без libc (`--freestanding`) через GrassHAL для микроконтроллеров и загрузчиков ОС. Прямое чтение/запись физических адресов (MMIO, VGA 0xB8000), аппаратные порты ввода-вывода x86 (`inb`/`outb`), квалификатор `volatile` и барьеры памяти.</p>
-          <p data-i18n-en>Independent freestanding build mode without libc (`--freestanding`) for microcontrollers and OS bootloaders. Direct memory-mapped I/O (MMIO), x86 Port I/O (`inb`/`outb`), `volatile` memory qualifiers, and hardware barriers.</p>
+          <h3 data-i18n-ru>Кроссплатформенность &amp; Freestanding</h3>
+          <h3 data-i18n-en>Cross-Platform &amp; Freestanding</h3>
+          <p data-i18n-ru>Универсальный скрипт `install.sh` для дистрибутивов Linux и графический `setup.exe` для Windows. Режим сборки ядра без libc (`--freestanding`) через GrassHAL для микроконтроллеров и ОС, прямое чтение MMIO/портов и барьеры памяти.</p>
+          <p data-i18n-en>Universal Linux `install.sh` and graphical Windows `setup.exe`. Independent freestanding mode without libc (`--freestanding`) via GrassHAL for microcontrollers, direct MMIO / Port I/O, and hardware barriers.</p>
           <div class="arch-card-specs">
+            <span class="spec-badge">Linux + Windows</span>
             <span class="spec-badge">GrassHAL</span>
             <span class="spec-badge">MMIO &amp; Port I/O</span>
-            <span class="spec-badge">Memory Barriers</span>
           </div>
         </article>
       </div>
@@ -466,7 +530,7 @@
   </section>
 
   <!-- ============================================================
-       Standard Library Catalog (18 modules strictly from repo)
+       Standard Library Catalog (19 modules strictly from repo)
        ============================================================ -->
   <section class="stdlib-section" id="libraries">
     <div class="container">
@@ -474,8 +538,8 @@
         <span class="section-tag">Standard Library</span>
         <h2 data-i18n-ru>Каталог встроенных библиотек</h2>
         <h2 data-i18n-en>Standard Library Catalog</h2>
-        <p data-i18n-ru>18 системных библиотек из официальной директории docs/. Нажмите на модуль для просмотра функций и вызовов.</p>
-        <p data-i18n-en>18 core modules straight from the official docs/ directory. Click any module to inspect functions and signatures.</p>
+        <p data-i18n-ru>19 системных библиотек из официальной директории docs/. Нажмите на модуль для просмотра функций и вызовов.</p>
+        <p data-i18n-en>19 core modules straight from the official docs/ directory. Click any module to inspect functions and signatures.</p>
       </div>
 
       <div class="stdlib-toolbar">
@@ -487,8 +551,8 @@
           <input type="text" id="libSearchInput" class="stdlib-search-input" placeholder="Поиск функций или библиотек (sin, window, connect, mmio)...">
         </div>
         <div class="stdlib-count-pill">
-          <span data-i18n-ru>Модулей: <span id="libVisibleCount">18</span> / 18</span>
-          <span data-i18n-en>Modules: <span id="libVisibleCount">18</span> / 18</span>
+          <span data-i18n-ru>Модулей: <span class="lib-visible-count" id="libVisibleCount">19</span> / 19</span>
+          <span data-i18n-en>Modules: <span class="lib-visible-count">19</span> / 19</span>
         </div>
       </div>
 
@@ -635,8 +699,8 @@
           </div>
         </div>
 
-        <!-- 4. !interface! (gui_engine) -->
-        <div class="lib-card" data-name="interface gui_engine" data-keywords="window title size color theme label enter button radius show click-ob">
+        <!-- 4. !interface! (VD+ GUI Engine) -->
+        <div class="lib-card" data-name="interface gui_engine vd+ vector" data-keywords="window auto_size_display border-radius-app header tab switch clock particles surface button enter label font-size glass glow animate">
           <div class="lib-card-header">
             <div class="lib-card-icon">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -649,30 +713,34 @@
               <div class="lib-card-title">
                 <h4>!interface!</h4>
                 <span class="lib-card-expand-icon">
-                  <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
                 </span>
               </div>
               <div class="lib-card-doc-ref">docs/interface.md</div>
             </div>
           </div>
-          <p class="lib-card-desc" data-i18n-ru>Оконный GUI Windows (Win32/GDI+): формы, темные темы, кнопки, поля ввода, выравнивание и закругления.</p>
-          <p class="lib-card-desc" data-i18n-en>Native Windows GUI stack: forms, dark/light themes, buttons, text fields, layouts, and click triggers.</p>
+          <p class="lib-card-desc" data-i18n-ru>Векторный оконный GUI VD+: субпиксельный рендеринг, DWM-скругление углов, High-DPI, вкладки tab/switch, часы clock() и частицы particles().</p>
+          <p class="lib-card-desc" data-i18n-en>Vector GUI suite VD+: subpixel rendering, DWM corner rounding, High-DPI scaling, tab/switch system, clock() widget, and particles().</p>
           <div class="lib-card-fn-list">
             <div class="fn-entry">
-              <span class="fn-code">window(), title(str), size(w, h), show</span>
-              <span class="fn-desc">Конфигурация параметров главного окна и вывод на экран.</span>
+              <span class="fn-code">auto_size_display(), border-radius-app(r)</span>
+              <span class="fn-desc">Авто-масштабирование под 2K/4K/DPI и гладкое скругление углов всего окна.</span>
             </div>
             <div class="fn-entry">
-              <span class="fn-code">theme("dark"), color("#hex"), glass</span>
-              <span class="fn-desc">Стилизация формы, подложки и эффекты прозрачности Mica/Aero.</span>
+              <span class="fn-code">header("emerald" | "native" | "glass" | "modern" | "none")</span>
+              <span class="fn-desc">Стили шапки окна: macOS 3 точки, акриловое стекло Mica, неон или без рамок.</span>
             </div>
             <div class="fn-entry">
-              <span class="fn-code">button(txt), button-color(c), radius(r)</span>
-              <span class="fn-desc">Интерактивные кнопки с кастомным закруглением и обработчиком click-ob.</span>
+              <span class="fn-code">tab = "name" { ... }, switch("name"), click-switch("name")</span>
+              <span class="fn-desc">Декларативные страницы и вкладки с мгновенным переключением без задержек.</span>
             </div>
             <div class="fn-entry">
-              <span class="fn-code">label(txt), enter(), font-size(n)</span>
-              <span class="fn-desc">Текстовые блоки и поля ввода информации.</span>
+              <span class="fn-code">clock(), particles(count, color), fullscreen()</span>
+              <span class="fn-desc">Виджет живых системных часов, фоновые светящиеся 60 FPS частицы и полный экран.</span>
+            </div>
+            <div class="fn-entry">
+              <span class="fn-code">button(txt), enter(txt), label(txt), radius(r), glow(hex)</span>
+              <span class="fn-desc">Векторные элементы управления с CSS-тенями, градиентами и неоновой подсветкой.</span>
             </div>
           </div>
         </div>
@@ -1239,35 +1307,84 @@
           </div>
         </div>
 
+        <!-- 19. !audio! (Sound Engine & Procedural Synthesizer) -->
+        <div class="lib-card" data-name="audio sound synth music" data-keywords="audio tone beep synth_play sound_play sound_stop sound_pause sound_volume sound_is_playing sine square triangle sawtooth noise wav mp3 audio_tone audio_beep audio_play audio_stop">
+          <div class="lib-card-header">
+            <div class="lib-card-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
+                <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"/>
+              </svg>
+            </div>
+            <div class="lib-card-info">
+              <div class="lib-card-title">
+                <h4>!audio!</h4>
+                <span class="lib-card-expand-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+                </span>
+              </div>
+              <div class="lib-card-doc-ref">docs/audio.md</div>
+            </div>
+          </div>
+          <p class="lib-card-desc" data-i18n-ru>Нативный аудио-движок и процедурный синтезатор волн (PCM 44.1 кГц, 16 бит): синус, меандр, пила, шум, тоны и проигрывание WAV/MP3.</p>
+          <p class="lib-card-desc" data-i18n-en>Native audio engine &amp; procedural wave synthesizer (PCM 44.1 kHz, 16-bit): sine, square, saw, noise, tones, and WAV/MP3 playback.</p>
+          <div class="lib-card-fn-list">
+            <div class="fn-entry">
+              <span class="fn-code">synth_play(waveform, freq_hz, duration_ms, vol)</span>
+              <span class="fn-desc">Синтез полифонических волн: "sine", "square", "triangle", "sawtooth", "noise".</span>
+            </div>
+            <div class="fn-entry">
+              <span class="fn-code">tone(freq_hz, duration_ms, volume)</span>
+              <span class="fn-desc">Генерация чистой синусоидальной гармоники заданной частоты со сглаживанием фронтов.</span>
+            </div>
+            <div class="fn-entry">
+              <span class="fn-code">sound_play(path, loop), sound_stop()</span>
+              <span class="fn-desc">Нативное воспроизведение аудиофайлов (.wav, .mp3, .ogg, .mid) с нулевыми зависимостями.</span>
+            </div>
+            <div class="fn-entry">
+              <span class="fn-code">sound_pause(), sound_resume(), sound_volume(vol)</span>
+              <span class="fn-desc">Управление воспроизведением трека и громкостью от 0 до 100%.</span>
+            </div>
+            <div class="fn-entry">
+              <span class="fn-code">beep(freq_hz, duration_ms), sound_is_playing()</span>
+              <span class="fn-desc">Аппаратный короткий сигнал спикера и проверка статуса воспроизведения.</span>
+            </div>
+          </div>
+        </div>
+
       </div>
     </div>
   </section>
 
   <!-- ============================================================
-       Roadmap v4.0 (The Evolution - 20 Points from ROADMAP.md)
+       Roadmap v4.0 -> v4.1 (The Evolution to Release v4.1)
        ============================================================ -->
   <section class="roadmap-section" id="roadmap">
     <div class="container">
       <div class="section-head">
-        <span class="section-tag">The Evolution</span>
-        <h2 data-i18n-ru>Дорожная карта ядра v4.0</h2>
-        <h2 data-i18n-en>Core Roadmap v4.0 (The Evolution)</h2>
-        <p data-i18n-ru>20 пунктов архитектурной эволюции ядра GrassGreen: от Stack VM к автономному системному языку с нативным JIT и Freestanding режимом.</p>
-        <p data-i18n-en>All 20 architectural evolution milestones from plans/ROADMAP.md: transitioning into an autonomous freestanding system language.</p>
+        <span class="section-tag">The Evolution &amp; v4.1</span>
+        <h2 data-i18n-ru>Дорожная карта ядра: от v4.0 к релизу v4.1</h2>
+        <h2 data-i18n-en>Core Roadmap: v4.0 Evolution to v4.1 Release</h2>
+        <p data-i18n-ru>Ключевые вехи эволюции языка GrassGreen: архитектура ядра v4.0 и масштабный релиз v4.1 с векторным GUI VD+, аудио-движком и кроссплатформенным Linux.</p>
+        <p data-i18n-en>Key evolution milestones of GrassGreen: v4.0 core architecture and major v4.1 release with VD+ GUI, !audio! engine, and Linux support.</p>
       </div>
 
       <div class="roadmap-filter-bar">
         <button type="button" class="roadmap-filter-btn active" data-category="all">
-          <span data-i18n-ru>Все 20 пунктов</span>
-          <span data-i18n-en>All 20 Milestones</span>
+          <span data-i18n-ru>Все вехи</span>
+          <span data-i18n-en>All Milestones</span>
+        </button>
+        <button type="button" class="roadmap-filter-btn" data-category="v41">
+          <span data-i18n-ru>Релиз v4.1 (Новое)</span>
+          <span data-i18n-en>Release v4.1 (New)</span>
         </button>
         <button type="button" class="roadmap-filter-btn" data-category="core">
-          <span data-i18n-ru>Ядро и VM</span>
+          <span data-i18n-ru>Ядро &amp; VM</span>
           <span data-i18n-en>Core &amp; VM</span>
         </button>
         <button type="button" class="roadmap-filter-btn" data-category="compiler">
-          <span data-i18n-ru>Компилятор &amp; Оптимизации</span>
-          <span data-i18n-en>Compiler &amp; Optimizer</span>
+          <span data-i18n-ru>Компилятор &amp; Сборка</span>
+          <span data-i18n-en>Compiler &amp; Build</span>
         </button>
         <button type="button" class="roadmap-filter-btn" data-category="syntax">
           <span data-i18n-ru>Синтаксис &amp; Память</span>
@@ -1721,6 +1838,94 @@
           </div>
         </div>
 
+        <!-- 21 (v4.1) -->
+        <div class="timeline-item" data-category="v41 core">
+          <div class="timeline-dot"></div>
+          <div class="timeline-card">
+            <div class="timeline-head">
+              <div class="timeline-title-wrap">
+                <span class="timeline-num">п. 21 (v4.1)</span>
+                <h4 data-i18n-ru>Векторный GUI-движок VD+ (Video Graphics Plus)</h4>
+                <h4 data-i18n-en>VD+ Vector GUI Suite (Video Graphics Plus)</h4>
+              </div>
+              <span class="timeline-status">
+                <svg viewBox="0 0 24 24" fill="none" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+                <span>Complete</span>
+              </span>
+            </div>
+            <div class="timeline-body">
+              <p data-i18n-ru>Полный переход от Win32 к CSS-векторному компоузингу. Адаптивный High-DPI `auto_size_display()` (2K/4K без размытия), аппаратное скругление углов `border-radius-app(r)`, стили шапок `header()`, вкладки `tab/switch`, живые часы `clock()` и частицы `particles()`.</p>
+              <p data-i18n-en>Full shift to CSS-grade vector compositing. High-DPI `auto_size_display()` (2K/4K), DWM corner rounding `border-radius-app(r)`, header styles, `tab/switch` system, synchronized `clock()`, and background `particles()`.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- 22 (v4.1) -->
+        <div class="timeline-item" data-category="v41 core">
+          <div class="timeline-dot"></div>
+          <div class="timeline-card">
+            <div class="timeline-head">
+              <div class="timeline-title-wrap">
+                <span class="timeline-num">п. 22 (v4.1)</span>
+                <h4 data-i18n-ru>Нативный аудио-движок `!audio!` &amp; Синтез PCM</h4>
+                <h4 data-i18n-en>Native Audio Engine `!audio!` &amp; PCM Wave Synth</h4>
+              </div>
+              <span class="timeline-status">
+                <svg viewBox="0 0 24 24" fill="none" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+                <span>Complete</span>
+              </span>
+            </div>
+            <div class="timeline-body">
+              <p data-i18n-ru>Процедурный синтез форм звуковых волн PCM 44.1 кГц (синус, меандр, пила, треугольник, белый шум), генерация тонов `tone()`, системные сигналы `beep()` и воспроизведение аудиофайлов (.wav, .mp3, .ogg) с нулевыми зависимостями.</p>
+              <p data-i18n-en>Procedural 44.1 kHz PCM waveform synthesis (sine, square, saw, triangle, noise), frequency tones `tone()`, system beeps `beep()`, and zero-dependency audio playback (.wav, .mp3, .ogg).</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- 23 (v4.1) -->
+        <div class="timeline-item" data-category="v41 compiler">
+          <div class="timeline-dot"></div>
+          <div class="timeline-card">
+            <div class="timeline-head">
+              <div class="timeline-title-wrap">
+                <span class="timeline-num">п. 23 (v4.1)</span>
+                <h4 data-i18n-ru>Кроссплатформенность Linux &amp; Скрипт `install.sh`</h4>
+                <h4 data-i18n-en>Cross-Platform Linux &amp; `install.sh` Installer</h4>
+              </div>
+              <span class="timeline-status">
+                <svg viewBox="0 0 24 24" fill="none" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+                <span>Complete</span>
+              </span>
+            </div>
+            <div class="timeline-body">
+              <p data-i18n-ru>Универсальный скрипт `install.sh` с автоопределением менеджеров пакетов (pacman, apt, dnf, zypper, apk, xbps), компиляция ядра под Linux через `build.sh` (C++20, `-pthread`) и сборка в самораспаковывающиеся ELF-бинарники (`grg -emit-exe`).</p>
+              <p data-i18n-en>Universal `install.sh` supporting all major Linux distributions (Arch, Ubuntu, Fedora, Alpine), Linux compiler build via `build.sh` (C++20, `-pthread`), and self-extracting ELF executable generation.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- 24 (v4.1) -->
+        <div class="timeline-item" data-category="v41 dx">
+          <div class="timeline-dot"></div>
+          <div class="timeline-card">
+            <div class="timeline-head">
+              <div class="timeline-title-wrap">
+                <span class="timeline-num">п. 24 (v4.1)</span>
+                <h4 data-i18n-ru>VS Code Extension 4.1.0 &amp; Полный IntelliSense</h4>
+                <h4 data-i18n-en>VS Code Extension 4.1.0 &amp; Complete IntelliSense</h4>
+              </div>
+              <span class="timeline-status">
+                <svg viewBox="0 0 24 24" fill="none" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+                <span>Complete</span>
+              </span>
+            </div>
+            <div class="timeline-body">
+              <p data-i18n-ru>Обновление пакета `grassgreen-4.1.0.vsix`: TextMate подсветка всех 19 стандартных библиотек, синтаксиса VD+, аудио-методов, 27 сниппетов автодополнения и горячих клавиш компиляции.</p>
+              <p data-i18n-en>Updated `grassgreen-4.1.0.vsix` extension: syntax highlighting for all 19 standard libraries, VD+ keywords, audio functions, 27 IntelliSense snippets, and build keybindings.</p>
+            </div>
+          </div>
+        </div>
+
       </div>
     </div>
   </section>
@@ -1769,8 +1974,8 @@
           </div>
           <h4 data-i18n-ru>Справочник библиотек (docs/library.md)</h4>
           <h4 data-i18n-en>Library Directory (docs/library.md)</h4>
-          <p data-i18n-ru>Полный перечень всех 18 стандартных библиотек с директивами подключения `!name!` и описанием назначения каждого модуля.</p>
-          <p data-i18n-en>Complete breakdown of all 18 standard modules, import syntax directives, and capabilities.</p>
+          <p data-i18n-ru>Полный перечень всех 19 стандартных библиотек с директивами подключения `!name!` и описанием назначения каждого модуля.</p>
+          <p data-i18n-en>Complete breakdown of all 19 standard modules, import syntax directives, and capabilities.</p>
           <a href="https://github.com/m1oky/GrassGreen/blob/main/docs/library.md" target="_blank" rel="noopener noreferrer" class="doc-quick-link">
             <span data-i18n-ru>Открыть справочник</span>
             <span data-i18n-en>Open Directory</span>
@@ -1786,13 +1991,31 @@
               <line x1="12" y1="17" x2="12" y2="21"/>
             </svg>
           </div>
-          <h4 data-i18n-ru>Win32 GUI &amp; 2D Движок</h4>
-          <h4 data-i18n-en>Win32 GUI &amp; 2D Graphics</h4>
-          <p data-i18n-ru>Документация оконного интерфейса `!interface!` и графического холста `!2DGraphics!` с двойной буферизацией и коллизиями.</p>
-          <p data-i18n-en>Guides for native window rendering, controls, double-buffered canvases, and 2D collision detection.</p>
+          <h4 data-i18n-ru>Векторный GUI VD+ (docs/interface.md)</h4>
+          <h4 data-i18n-en>VD+ Vector GUI (docs/interface.md)</h4>
+          <p data-i18n-ru>Руководство графического движка VD+: DWM-скругление углов, стили шапок, High-DPI, табы и виджет системных часов.</p>
+          <p data-i18n-en>VD+ Vector GUI guide: DWM rounding, header presets, High-DPI scaling, tabs, and clock widgets.</p>
           <a href="https://github.com/m1oky/GrassGreen/blob/main/docs/interface.md" target="_blank" rel="noopener noreferrer" class="doc-quick-link">
             <span data-i18n-ru>Открыть руководство GUI</span>
             <span data-i18n-en>Open GUI Guide</span>
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+          </a>
+        </div>
+
+        <div class="doc-quick-card">
+          <div class="doc-quick-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
+              <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"/>
+            </svg>
+          </div>
+          <h4 data-i18n-ru>Аудио-движок (docs/audio.md)</h4>
+          <h4 data-i18n-en>Audio Engine (docs/audio.md)</h4>
+          <p data-i18n-ru>Процедурный синтез PCM волн 44.1 кГц (синус, квадрат, пила, шум), тоны `tone()`, системные бипы и воспроизведение файлов.</p>
+          <p data-i18n-en>Procedural 44.1 kHz PCM wave synth (sine, square, saw, noise), tone frequencies, and audio file player.</p>
+          <a href="https://github.com/m1oky/GrassGreen/blob/main/docs/audio.md" target="_blank" rel="noopener noreferrer" class="doc-quick-link">
+            <span data-i18n-ru>Открыть аудио-справочник</span>
+            <span data-i18n-en>Open Audio Guide</span>
             <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
           </a>
         </div>
@@ -1822,8 +2045,8 @@
             </svg>
             <span class="footer-logo-title">GrassGreen (G&amp;G)</span>
           </div>
-          <p class="footer-desc" data-i18n-ru>Высокопроизводительный байткод-язык системного уровня с синтаксисом C++, собственной виртуальной машиной Direct-Threaded VM и упаковкой в Win32 PE .exe.</p>
-          <p class="footer-desc" data-i18n-en>High-performance system-level bytecode language with C++ syntax, proprietary Direct-Threaded VM, and native Win32 PE .exe packaging.</p>
+          <p class="footer-desc" data-i18n-ru>Высокопроизводительный байткод-язык системного уровня с синтаксисом C++, собственной виртуальной машиной Direct-Threaded VM, упаковкой в Win32 PE .exe и Linux ELF.</p>
+          <p class="footer-desc" data-i18n-en>High-performance system-level bytecode language with C++ syntax, proprietary Direct-Threaded VM, and packaging in Win32 PE .exe &amp; Linux ELF.</p>
         </div>
 
         <div class="footer-col-group">
@@ -1844,8 +2067,10 @@
             <h5 data-i18n-en>Documentation</h5>
             <ul>
               <li><a href="https://github.com/m1oky/GrassGreen/blob/main/docs/main.md" target="_blank" rel="noopener noreferrer">Спецификация ядра</a></li>
-              <li><a href="https://github.com/m1oky/GrassGreen/blob/main/docs/library.md" target="_blank" rel="noopener noreferrer">Каталог библиотек</a></li>
-              <li><a href="https://github.com/m1oky/GrassGreen/blob/main/plans/ROADMAP.md" target="_blank" rel="noopener noreferrer">Роадмап v4.0 (20 пунктов)</a></li>
+              <li><a href="https://github.com/m1oky/GrassGreen/blob/main/docs/library.md" target="_blank" rel="noopener noreferrer">Каталог библиотек (19)</a></li>
+              <li><a href="https://github.com/m1oky/GrassGreen/blob/main/docs/interface.md" target="_blank" rel="noopener noreferrer">Векторный GUI VD+</a></li>
+              <li><a href="https://github.com/m1oky/GrassGreen/blob/main/docs/audio.md" target="_blank" rel="noopener noreferrer">Аудио-движок !audio!</a></li>
+              <li><a href="https://github.com/m1oky/GrassGreen/blob/main/plans/ROADMAP.md" target="_blank" rel="noopener noreferrer">Роадмап v4.1</a></li>
               <li><a href="https://github.com/m1oky/GrassGreen/blob/main/docs/mmio.md" target="_blank" rel="noopener noreferrer">Аппаратный доступ MMIO</a></li>
             </ul>
           </div>
@@ -1856,7 +2081,7 @@
         <div>&copy; 2026 GrassGreen Project. Разработчик: m1oky</div>
         <div class="footer-meta">
           <span>License: MIT</span>
-          <span>Release: v4.0</span>
+          <span>Release: v4.1</span>
         </div>
       </div>
     </div>

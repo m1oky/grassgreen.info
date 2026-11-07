@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>GrassGreen (G&G) — Высокопроизводительный байткод-язык системного уровня</title>
-  <meta name="description" content="Официальный сайт и документация GrassGreen (G&G) v4.1. C++ синтаксис, собственная Direct-Threaded Stack VM, упаковка в Win32 PE .exe и Linux ELF, векторный GUI VD+, аудио-движок !audio!, JIT, Arena Allocator и Freestanding режим.">
+  <meta name="description" content="Официальный сайт и документация GrassGreen (G&G) v4.2. C++ синтаксис, встроенный ассемблер ядра !asm!, контроллер клавиатуры !keyboard!, генерация Multiboot ядер и загрузочных ISO, векторный GUI VD+, аудио-движок !audio!, JIT, Direct-Threaded VM.">
   <link rel="icon" type="image/svg+xml" href="assets/logo.svg">
   <link rel="stylesheet" href="css/style.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -34,7 +34,7 @@
         </svg>
         <div class="header-brand-text">
           <span class="header-brand-name">GrassGreen</span>
-          <span class="header-brand-tag">G&amp;G v4.1</span>
+          <span class="header-brand-tag">G&amp;G v4.2</span>
         </div>
       </a>
 
@@ -48,8 +48,8 @@
           <span data-i18n-en>Libraries</span>
         </a>
         <a href="#roadmap">
-          <span data-i18n-ru>Роадмап v4.1</span>
-          <span data-i18n-en>Roadmap v4.1</span>
+          <span data-i18n-ru>Роадмап v4.2</span>
+          <span data-i18n-en>Roadmap v4.2</span>
         </a>
         <a href="#docs">
           <span data-i18n-ru>Документация</span>
@@ -109,8 +109,8 @@
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
         </svg>
-        <span data-i18n-ru>Релиз версии 4.1: VD+ GUI, !audio! &amp; Linux</span>
-        <span data-i18n-en>Release v4.1: VD+ GUI, !audio! &amp; Linux</span>
+        <span data-i18n-ru>Релиз версии 4.2: Bare-Metal OS Edition, !asm! &amp; !keyboard!</span>
+        <span data-i18n-en>Release v4.2: Bare-Metal OS Edition, !asm! &amp; !keyboard!</span>
       </div>
 
       <h1 data-i18n-ru>Высокопроизводительный байткод-язык системного уровня</h1>
@@ -119,14 +119,14 @@
       <p class="hero-sub">
         <span>C++ синтаксис</span>
         <span class="dot-sep">·</span>
+        <span data-i18n-ru>Встроенный ассемблер !asm!</span>
+        <span data-i18n-en>Embedded Assembler !asm!</span>
+        <span class="dot-sep">·</span>
         <span data-i18n-ru>Direct-Threaded VM</span>
         <span data-i18n-en>Direct-Threaded VM</span>
         <span class="dot-sep">·</span>
-        <span data-i18n-ru>Векторный GUI VD+</span>
-        <span data-i18n-en>VD+ Vector GUI</span>
-        <span class="dot-sep">·</span>
-        <span data-i18n-ru>Сборка Win32 PE .exe &amp; Linux ELF</span>
-        <span data-i18n-en>Native Win32 PE .exe &amp; Linux ELF</span>
+        <span data-i18n-ru>Сборка Win32 PE .exe, Linux ELF &amp; Bare-Metal ISO</span>
+        <span data-i18n-en>Native Win32 PE .exe, Linux ELF &amp; Bare-Metal ISO</span>
       </p>
 
       <div class="hero-actions">
@@ -136,8 +136,8 @@
             <polyline points="7 10 12 15 17 10"/>
             <line x1="12" y1="15" x2="12" y2="3"/>
           </svg>
-          <span data-i18n-ru>Скачать компилятор grg (v4.1)</span>
-          <span data-i18n-en>Download grg Compiler (v4.1)</span>
+          <span data-i18n-ru>Скачать компилятор grg (v4.2)</span>
+          <span data-i18n-en>Download grg Compiler (v4.2)</span>
         </a>
 
         <a href="#docs" class="btn-secondary">
@@ -160,6 +160,14 @@
           <button type="button" class="term-mode-btn" data-cmd="grg -emit-exe main.grass -o app">
             <span data-i18n-ru>Сборка EXE/ELF</span>
             <span data-i18n-en>Build EXE/ELF</span>
+          </button>
+          <button type="button" class="term-mode-btn" data-cmd="grg --iso kernel.grass -o os.iso">
+            <span data-i18n-ru>Сборка ISO ядра</span>
+            <span data-i18n-en>Build Kernel ISO</span>
+          </button>
+          <button type="button" class="term-mode-btn" data-cmd="grg --kernel --multiboot kernel.grass -o kernel.bin">
+            <span data-i18n-ru>Multiboot ядро</span>
+            <span data-i18n-en>Multiboot Kernel</span>
           </button>
           <button type="button" class="term-mode-btn" data-cmd="./install.sh">
             <span data-i18n-ru>Linux Install</span>
@@ -235,6 +243,21 @@
               </svg>
               <span>audio_synth.grass</span>
             </button>
+            <button type="button" class="code-tab-btn" data-tab="kernel" role="tab">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="4" y="4" width="16" height="16" rx="2" ry="2"/>
+                <rect x="9" y="9" width="6" height="6"/>
+                <line x1="9" y1="1" x2="9" y2="4"/>
+                <line x1="15" y1="1" x2="15" y2="4"/>
+                <line x1="9" y1="20" x2="9" y2="23"/>
+                <line x1="15" y1="20" x2="15" y2="23"/>
+                <line x1="20" y1="9" x2="23" y2="9"/>
+                <line x1="20" y1="14" x2="23" y2="14"/>
+                <line x1="1" y1="9" x2="4" y2="9"/>
+                <line x1="1" y1="14" x2="4" y2="14"/>
+              </svg>
+              <span>kernel_os.grass</span>
+            </button>
           </div>
 
           <div class="code-actions-top">
@@ -257,10 +280,10 @@
 <span class="tok-com">// Быстрый старт: точка входа main() и потоковый вывод gout</span>
 <span class="tok-kw">int</span> <span class="tok-fn">main</span>() {
     <span class="tok-kw">take</span> project = <span class="tok-str">"GrassGreen"</span>;
-    <span class="tok-kw">take</span> version = <span class="tok-num">4.1</span>;
+    <span class="tok-kw">take</span> version = <span class="tok-num">4.2</span>;
 
     <span class="tok-pipe">gout</span> <span class="tok-op">&lt;&lt;</span> <span class="tok-str">"Добро пожаловать в "</span> <span class="tok-op">&lt;&lt;</span> project <span class="tok-op">&lt;&lt;</span> <span class="tok-str">" v"</span> <span class="tok-op">&lt;&lt;</span> version <span class="tok-op">&lt;&lt;</span> <span class="tok-pipe">endl</span>;
-    <span class="tok-pipe">gout</span> <span class="tok-op">&lt;&lt;</span> <span class="tok-str">"Direct-Threaded Dispatcher &amp; VD+ Engine активны."</span> <span class="tok-op">&lt;&lt;</span> <span class="tok-pipe">endl</span>;
+    <span class="tok-pipe">gout</span> <span class="tok-op">&lt;&lt;</span> <span class="tok-str">"Direct-Threaded Dispatcher &amp; Bare-Metal Kernel активны."</span> <span class="tok-op">&lt;&lt;</span> <span class="tok-pipe">endl</span>;
 
     <span class="tok-kw">return</span> <span class="tok-num">0</span>;
 }</code></pre>
@@ -269,10 +292,10 @@
 <span class="tok-com">// Quick start: main() entry point and gout stream I/O</span>
 <span class="tok-kw">int</span> <span class="tok-fn">main</span>() {
     <span class="tok-kw">take</span> project = <span class="tok-str">"GrassGreen"</span>;
-    <span class="tok-kw">take</span> version = <span class="tok-num">4.1</span>;
+    <span class="tok-kw">take</span> version = <span class="tok-num">4.2</span>;
 
     <span class="tok-pipe">gout</span> <span class="tok-op">&lt;&lt;</span> <span class="tok-str">"Welcome to "</span> <span class="tok-op">&lt;&lt;</span> project <span class="tok-op">&lt;&lt;</span> <span class="tok-str">" v"</span> <span class="tok-op">&lt;&lt;</span> version <span class="tok-op">&lt;&lt;</span> <span class="tok-pipe">endl</span>;
-    <span class="tok-pipe">gout</span> <span class="tok-op">&lt;&lt;</span> <span class="tok-str">"Direct-Threaded Dispatcher &amp; VD+ Engine are active."</span> <span class="tok-op">&lt;&lt;</span> <span class="tok-pipe">endl</span>;
+    <span class="tok-pipe">gout</span> <span class="tok-op">&lt;&lt;</span> <span class="tok-str">"Direct-Threaded Dispatcher &amp; Bare-Metal Kernel are active."</span> <span class="tok-op">&lt;&lt;</span> <span class="tok-pipe">endl</span>;
 
     <span class="tok-kw">return</span> <span class="tok-num">0</span>;
 }</code></pre>
@@ -423,6 +446,50 @@
     <span class="tok-kw">return</span> <span class="tok-num">0</span>;
 }</code></pre>
           </div>
+
+          <!-- Snippet 5: kernel_os.grass (Bare-Metal OS & !asm! & !keyboard!) -->
+          <div class="code-snippet-panel" id="snippet-kernel">
+            <pre data-i18n-ru><code><span class="tok-dir">!GrassGreen!</span>
+<span class="tok-dir">!asm!</span>
+<span class="tok-dir">!keyboard!</span>
+
+<span class="tok-com">// Ядро операционной системы на голом железе (Bare-Metal x86_64 OS)</span>
+<span class="tok-kw">int</span> <span class="tok-fn">main</span>() {
+    <span class="tok-fn">cli</span>();                      <span class="tok-com">// Запрет аппаратных прерываний</span>
+    <span class="tok-fn">write_cr3</span>(<span class="tok-num">0x1000</span>);          <span class="tok-com">// Каталог таблиц страниц PML4</span>
+
+    <span class="tok-pipe">gout</span> <span class="tok-op">&lt;&lt;</span> <span class="tok-str">"GrassOS Kernel v4.2.0 (Bare-Metal x86_64) запущен!"</span> <span class="tok-op">&lt;&lt;</span> <span class="tok-pipe">endl</span>;
+    <span class="tok-pipe">gout</span> <span class="tok-op">&lt;&lt;</span> <span class="tok-str">"Введите имя пользователя: "</span>;
+
+    <span class="tok-com">// Построчный ввод с поддержкой Backspace из PS/2 контроллера (порты 0x60, 0x64)</span>
+    <span class="tok-kw">take</span> user = <span class="tok-fn">kbd_read_line</span>();
+    <span class="tok-pipe">gout</span> <span class="tok-op">&lt;&lt;</span> <span class="tok-str">"Добро пожаловать в пространство ядра, "</span> <span class="tok-op">&lt;&lt;</span> user <span class="tok-op">&lt;&lt;</span> <span class="tok-str">"!"</span> <span class="tok-op">&lt;&lt;</span> <span class="tok-pipe">endl</span>;
+
+    <span class="tok-fn">sti</span>();                      <span class="tok-com">// Разрешение аппаратных прерываний</span>
+    <span class="tok-fn">hlt</span>();                      <span class="tok-com">// Остановка CPU до следующего прерывания</span>
+    <span class="tok-kw">return</span> <span class="tok-num">0</span>;
+}</code></pre>
+            <pre data-i18n-en><code><span class="tok-dir">!GrassGreen!</span>
+<span class="tok-dir">!asm!</span>
+<span class="tok-dir">!keyboard!</span>
+
+<span class="tok-com">// Bare-Metal x86_64 Operating System Kernel</span>
+<span class="tok-kw">int</span> <span class="tok-fn">main</span>() {
+    <span class="tok-fn">cli</span>();                      <span class="tok-com">// Disable hardware interrupts</span>
+    <span class="tok-fn">write_cr3</span>(<span class="tok-num">0x1000</span>);          <span class="tok-com">// Set PML4 page directory</span>
+
+    <span class="tok-pipe">gout</span> <span class="tok-op">&lt;&lt;</span> <span class="tok-str">"GrassOS Kernel v4.2.0 (Bare-Metal x86_64) active!"</span> <span class="tok-op">&lt;&lt;</span> <span class="tok-pipe">endl</span>;
+    <span class="tok-pipe">gout</span> <span class="tok-op">&lt;&lt;</span> <span class="tok-str">"Enter username: "</span>;
+
+    <span class="tok-com">// Line input with Backspace directly via PS/2 controller (ports 0x60, 0x64)</span>
+    <span class="tok-kw">take</span> user = <span class="tok-fn">kbd_read_line</span>();
+    <span class="tok-pipe">gout</span> <span class="tok-op">&lt;&lt;</span> <span class="tok-str">"Welcome to sovereign kernel space, "</span> <span class="tok-op">&lt;&lt;</span> user <span class="tok-op">&lt;&lt;</span> <span class="tok-str">"!"</span> <span class="tok-op">&lt;&lt;</span> <span class="tok-pipe">endl</span>;
+
+    <span class="tok-fn">sti</span>();                      <span class="tok-com">// Enable hardware interrupts</span>
+    <span class="tok-fn">hlt</span>();                      <span class="tok-com">// Halt CPU until next interrupt</span>
+    <span class="tok-kw">return</span> <span class="tok-num">0</span>;
+}</code></pre>
+          </div>
         </div>
       </div>
     </div>
@@ -442,7 +509,7 @@
       </div>
 
       <div class="arch-grid">
-        <!-- Card 1: Standalone PE .exe & Linux ELF Packer -->
+        <!-- Card 1: Standalone PE .exe, Linux ELF & ISO Packer -->
         <article class="arch-card">
           <div class="arch-card-icon">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -451,18 +518,37 @@
               <line x1="12" y1="17" x2="12" y2="21"/>
             </svg>
           </div>
-          <h3 data-i18n-ru>Win32 PE &amp; Linux ELF упаковщик</h3>
-          <h3 data-i18n-en>Win32 PE &amp; Linux ELF Packer</h3>
-          <p data-i18n-ru>Сборка программ в самостоятельные бинарные исполняемые файлы Win32 PE (.exe) и самораспаковывающиеся ELF-бинарники для Linux. Байт-код компонуется в тело загрузчика (`-emit-exe`), работая автономно без внешних рантаймов, Node.js или Python.</p>
-          <p data-i18n-en>Compiles programs into standalone Win32 PE binary executable files (.exe) and self-extracting Linux ELF binaries. Bytecode is packed directly with the native runner (`-emit-exe`), running without external runtime dependencies.</p>
+          <h3 data-i18n-ru>Win32 PE, Linux ELF &amp; Bootable ISO</h3>
+          <h3 data-i18n-en>Win32 PE, Linux ELF &amp; Bootable ISO</h3>
+          <p data-i18n-ru>Сборка программ в самостоятельные бинарные исполняемые файлы Win32 PE (.exe), самораспаковывающиеся ELF-бинарники для Linux и готовые загрузочные образы дисков `.iso` (El Torito No-Emulation) силами компилятора без сторонних утилит.</p>
+          <p data-i18n-en>Compiles into standalone Win32 PE (.exe), self-extracting Linux ELF binaries, and bootable `.iso` disk images (El Torito No-Emulation) directly by the compiler without external utilities.</p>
           <div class="arch-card-specs">
-            <span class="spec-badge">Win32 PE &amp; Linux ELF</span>
+            <span class="spec-badge">PE, ELF &amp; ISO</span>
+            <span class="spec-badge">--iso</span>
             <span class="spec-badge">-emit-exe</span>
-            <span class="spec-badge">Zero Runtime Dependency</span>
           </div>
         </article>
 
-        <!-- Card 2: Direct-Threaded VM -->
+        <!-- Card 2: Embedded Kernel Assembler !asm! -->
+        <article class="arch-card">
+          <div class="arch-card-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="16 18 22 12 16 6"/>
+              <polyline points="8 6 2 12 8 18"/>
+            </svg>
+          </div>
+          <h3 data-i18n-ru>Встроенный ассемблер ядра `!asm!`</h3>
+          <h3 data-i18n-en>Embedded Kernel Assembler `!asm!`</h3>
+          <p data-i18n-ru>Прямые ассемблерные вставки `asm { ... }` без NASM/GAS. Полный контроль процессора: системные регистры `CR0`–`CR4`, чтение/запись портов `in`/`out`, флаги `RFLAGS`, счетчик тактов `rdtsc()` и аппаратные прерывания `cli`/`sti`/`hlt`.</p>
+          <p data-i18n-en>Direct inline assembly `asm { ... }` without NASM/GAS. Full CPU control: `CR0`–`CR4` registers, I/O ports `in`/`out`, `RFLAGS`, cycle counter `rdtsc()`, and interrupts `cli`/`sti`/`hlt`.</p>
+          <div class="arch-card-specs">
+            <span class="spec-badge">!asm!</span>
+            <span class="spec-badge">CR0-CR4 &amp; RFLAGS</span>
+            <span class="spec-badge">cli / sti / hlt</span>
+          </div>
+        </article>
+
+        <!-- Card 3: Direct-Threaded VM & JIT -->
         <article class="arch-card">
           <div class="arch-card-icon">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -476,53 +562,34 @@
           <div class="arch-card-specs">
             <span class="spec-badge">Computed Goto</span>
             <span class="spec-badge">x86_64 SSE2 JIT</span>
-            <span class="spec-badge">Opcode Fusion</span>
+            <span class="spec-badge">NaN-Boxing</span>
           </div>
         </article>
 
-        <!-- Card 3: Arena Allocator & NaN-Boxing -->
+        <!-- Card 4: Bare-Metal OS & Keyboard Controller -->
         <article class="arch-card">
           <div class="arch-card-icon">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <rect x="4" y="4" width="16" height="16" rx="2" ry="2"/>
-              <rect x="9" y="9" width="6" height="6"/>
-              <line x1="9" y1="1" x2="9" y2="4"/>
-              <line x1="15" y1="1" x2="15" y2="4"/>
-              <line x1="9" y1="20" x2="9" y2="23"/>
-              <line x1="15" y1="20" x2="15" y2="23"/>
-              <line x1="20" y1="9" x2="23" y2="9"/>
-              <line x1="20" y1="14" x2="23" y2="14"/>
-              <line x1="1" y1="9" x2="4" y2="9"/>
-              <line x1="1" y1="14" x2="4" y2="14"/>
+              <rect x="2" y="4" width="20" height="16" rx="2" ry="2"/>
+              <line x1="6" y1="8" x2="6.01" y2="8"/>
+              <line x1="10" y1="8" x2="10.01" y2="8"/>
+              <line x1="14" y1="8" x2="14.01" y2="8"/>
+              <line x1="18" y1="8" x2="18.01" y2="8"/>
+              <line x1="6" y1="12" x2="6.01" y2="12"/>
+              <line x1="10" y1="12" x2="10.01" y2="12"/>
+              <line x1="14" y1="12" x2="14.01" y2="12"/>
+              <line x1="18" y1="12" x2="18.01" y2="12"/>
+              <line x1="7" y1="16" x2="17" y2="16"/>
             </svg>
           </div>
-          <h3 data-i18n-ru>Arena Allocator &amp; NaN-Boxing</h3>
-          <h3 data-i18n-en>Arena Allocator &amp; NaN-Boxing</h3>
-          <p data-i18n-ru>Выделение памяти со сдвигом указателя (bump-pointer) без фрагментации ОЗУ и освобождением целых пулов в O(1). Все базовые значения упакованы в 64-битный формат IEEE 754 (ровно 8 байт), снижая нагрузку на L1-кэш процессора в 2 раза.</p>
-          <p data-i18n-en>Bump-pointer linear memory allocation with zero fragmentation and instant O(1) pool release. All primitives fit into a flat 64-bit IEEE 754 NaN-box (strictly 8 bytes), halving CPU L1 cache bandwidth pressure.</p>
+          <h3 data-i18n-ru>Bare-Metal OS &amp; !keyboard!</h3>
+          <h3 data-i18n-en>Bare-Metal OS &amp; !keyboard!</h3>
+          <p data-i18n-ru>Флаги компиляции ядра `--kernel`, `--multiboot`, драйверов `--sys`. Встроенное взаимодействие с контроллером клавиатуры PS/2 (`!keyboard!`), директива `use utf -` с поддержкой русской раскладки ЙЦУКЕН и режим Freestanding.</p>
+          <p data-i18n-en>Kernel compilation flags `--kernel`, `--multiboot`, drivers `--sys`. Integrated PS/2 keyboard controller (`!keyboard!`), `use utf -` directive with Cyrillic layout support, and pure Freestanding mode.</p>
           <div class="arch-card-specs">
-            <span class="spec-badge">Bump Pointer</span>
-            <span class="spec-badge">8-Byte Values</span>
-            <span class="spec-badge">C-ABI Alignment</span>
-          </div>
-        </article>
-
-        <!-- Card 4: Cross-Platform & Freestanding -->
-        <article class="arch-card">
-          <div class="arch-card-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <circle cx="12" cy="12" r="3"/>
-              <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/>
-            </svg>
-          </div>
-          <h3 data-i18n-ru>Кроссплатформенность &amp; Freestanding</h3>
-          <h3 data-i18n-en>Cross-Platform &amp; Freestanding</h3>
-          <p data-i18n-ru>Универсальный скрипт `install.sh` для дистрибутивов Linux и графический `setup.exe` для Windows. Режим сборки ядра без libc (`--freestanding`) через GrassHAL для микроконтроллеров и ОС, прямое чтение MMIO/портов и барьеры памяти.</p>
-          <p data-i18n-en>Universal Linux `install.sh` and graphical Windows `setup.exe`. Independent freestanding mode without libc (`--freestanding`) via GrassHAL for microcontrollers, direct MMIO / Port I/O, and hardware barriers.</p>
-          <div class="arch-card-specs">
-            <span class="spec-badge">Linux + Windows</span>
-            <span class="spec-badge">GrassHAL</span>
-            <span class="spec-badge">MMIO &amp; Port I/O</span>
+            <span class="spec-badge">--kernel &amp; --multiboot</span>
+            <span class="spec-badge">!keyboard! PS/2</span>
+            <span class="spec-badge">use utf -</span>
           </div>
         </article>
       </div>
@@ -530,7 +597,7 @@
   </section>
 
   <!-- ============================================================
-       Standard Library Catalog (19 modules strictly from repo)
+       Standard Library Catalog (21 modules strictly from repo)
        ============================================================ -->
   <section class="stdlib-section" id="libraries">
     <div class="container">
@@ -538,8 +605,8 @@
         <span class="section-tag">Standard Library</span>
         <h2 data-i18n-ru>Каталог встроенных библиотек</h2>
         <h2 data-i18n-en>Standard Library Catalog</h2>
-        <p data-i18n-ru>19 системных библиотек из официальной директории docs/. Нажмите на модуль для просмотра функций и вызовов.</p>
-        <p data-i18n-en>19 core modules straight from the official docs/ directory. Click any module to inspect functions and signatures.</p>
+        <p data-i18n-ru>21 системная библиотека из официальной директории docs/. Нажмите на модуль для просмотра функций и вызовов.</p>
+        <p data-i18n-en>21 core modules straight from the official docs/ directory. Click any module to inspect functions and signatures.</p>
       </div>
 
       <div class="stdlib-toolbar">
@@ -548,11 +615,11 @@
             <circle cx="11" cy="11" r="8"/>
             <line x1="21" y1="21" x2="16.65" y2="16.65"/>
           </svg>
-          <input type="text" id="libSearchInput" class="stdlib-search-input" placeholder="Поиск функций или библиотек (sin, window, connect, mmio)...">
+          <input type="text" id="libSearchInput" class="stdlib-search-input" placeholder="Поиск функций или библиотек (sin, window, asm, kbd, mmio)...">
         </div>
         <div class="stdlib-count-pill">
-          <span data-i18n-ru>Модулей: <span class="lib-visible-count" id="libVisibleCount">19</span> / 19</span>
-          <span data-i18n-en>Modules: <span class="lib-visible-count">19</span> / 19</span>
+          <span data-i18n-ru>Модулей: <span class="lib-visible-count" id="libVisibleCount">21</span> / 21</span>
+          <span data-i18n-en>Modules: <span class="lib-visible-count">21</span> / 21</span>
         </div>
       </div>
 
@@ -1352,21 +1419,119 @@
           </div>
         </div>
 
+        <!-- 20. !asm! (Embedded Kernel Assembler) -->
+        <div class="lib-card" data-name="asm inline assembly kernel" data-keywords="asm cli sti hlt pause nop invlpg rdtsc in in8 in16 in32 out out8 out16 out32 read_cr0 write_cr0 read_cr2 read_cr3 write_cr3 read_cr4 write_cr4 read_rflags write_rflags cpuid assembler registers interrupts">
+          <div class="lib-card-header">
+            <div class="lib-card-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="16 18 22 12 16 6"/>
+                <polyline points="8 6 2 12 8 18"/>
+              </svg>
+            </div>
+            <div class="lib-card-info">
+              <div class="lib-card-title">
+                <h4>!asm!</h4>
+                <span class="lib-card-expand-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+                </span>
+              </div>
+              <div class="lib-card-doc-ref">docs/asm.md</div>
+            </div>
+          </div>
+          <p class="lib-card-desc" data-i18n-ru>Встроенный ассемблер ядра: ассемблерные вставки без NASM/GAS, системные регистры CR0-CR4, прерывания (cli, sti, hlt), порты ввода-вывода и CPUID.</p>
+          <p class="lib-card-desc" data-i18n-en>Embedded kernel assembler: inline assembly without NASM/GAS, CR0-CR4 registers, interrupts (cli, sti, hlt), I/O ports, and CPUID.</p>
+          <div class="lib-card-fn-list">
+            <div class="fn-entry">
+              <span class="fn-code">cli(), sti(), hlt(), pause(), nop(), rdtsc()</span>
+              <span class="fn-desc">Аппаратное управление прерываниями CPU, остановка ядра и чтение тактов.</span>
+            </div>
+            <div class="fn-entry">
+              <span class="fn-code">in(port), in16(p), in32(p), out(port, val), out32(p, v)</span>
+              <span class="fn-desc">Прямой опрос и запись в аппаратные порты ввода-вывода x86 (IN/OUT).</span>
+            </div>
+            <div class="fn-entry">
+              <span class="fn-code">read_cr0(), write_cr0(v), read_cr3(), write_cr3(v)</span>
+              <span class="fn-desc">Управление защищенным режимом и каталогом таблиц страниц PML4.</span>
+            </div>
+            <div class="fn-entry">
+              <span class="fn-code">read_cr4(), write_cr4(v), read_rflags(), write_rflags(v)</span>
+              <span class="fn-desc">Чтение и изменение расширенных управляющих флагов и регистра RFLAGS.</span>
+            </div>
+            <div class="fn-entry">
+              <span class="fn-code">asm { cli; xor eax, eax; mov cr0, eax; sti }</span>
+              <span class="fn-desc">Встроенный блок ассемблера с прямой компиляцией инструкций в машинный код.</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 21. !keyboard! (PS/2 Keyboard Controller) -->
+        <div class="lib-card" data-name="keyboard kbd ps2 controller" data-keywords="keyboard kbd ps2 kbd_has_key kbd_read_scancode kbd_get_scancode kbd_scancode_to_char kbd_scancode_name kbd_getc kbd_poll kbd_read_line kbd_is_shift kbd_is_caps kbd_is_ctrl kbd_is_alt kbd_leds kbd_reset">
+          <div class="lib-card-header">
+            <div class="lib-card-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="2" y="4" width="20" height="16" rx="2" ry="2"/>
+                <line x1="6" y1="8" x2="6.01" y2="8"/>
+                <line x1="10" y1="8" x2="10.01" y2="8"/>
+                <line x1="14" y1="8" x2="14.01" y2="8"/>
+                <line x1="18" y1="8" x2="18.01" y2="8"/>
+                <line x1="6" y1="12" x2="6.01" y2="12"/>
+                <line x1="10" y1="12" x2="10.01" y2="12"/>
+                <line x1="14" y1="12" x2="14.01" y2="12"/>
+                <line x1="18" y1="12" x2="18.01" y2="12"/>
+                <line x1="7" y1="16" x2="17" y2="16"/>
+              </svg>
+            </div>
+            <div class="lib-card-info">
+              <div class="lib-card-title">
+                <h4>!keyboard!</h4>
+                <span class="lib-card-expand-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+                </span>
+              </div>
+              <div class="lib-card-doc-ref">docs/keyboard.md</div>
+            </div>
+          </div>
+          <p class="lib-card-desc" data-i18n-ru>Драйвер контроллера клавиатуры PS/2 (порты 0x60, 0x64): скан-коды, трансляция символов, опрос Shift/Caps/Ctrl и построчный ввод kbd_read_line().</p>
+          <p class="lib-card-desc" data-i18n-en>PS/2 keyboard controller driver (ports 0x60, 0x64): scan codes, ASCII translation, Shift/Caps/Ctrl states, and buffered kbd_read_line().</p>
+          <div class="lib-card-fn-list">
+            <div class="fn-entry">
+              <span class="fn-code">kbd_has_key(), kbd_read_scancode(), kbd_get_scancode()</span>
+              <span class="fn-desc">Низкоуровневый опрос буфера контроллера 8042 и чтение скан-кодов.</span>
+            </div>
+            <div class="fn-entry">
+              <span class="fn-code">kbd_read_line()</span>
+              <span class="fn-desc">Построчный ввод строки текста с эхо-печатью и обработкой клавиши Backspace.</span>
+            </div>
+            <div class="fn-entry">
+              <span class="fn-code">kbd_scancode_to_char(code), kbd_scancode_name(code)</span>
+              <span class="fn-desc">Преобразование скан-кодов в символы и человекочитаемые названия клавиш.</span>
+            </div>
+            <div class="fn-entry">
+              <span class="fn-code">kbd_is_shift(), kbd_is_caps(), kbd_is_ctrl(), kbd_is_alt()</span>
+              <span class="fn-desc">Проверка зажатия клавиш-модификаторов и переключателей регистра.</span>
+            </div>
+            <div class="fn-entry">
+              <span class="fn-code">kbd_leds(caps, num, scroll), kbd_reset()</span>
+              <span class="fn-desc">Управление светодиодами клавиатуры (команда 0xED) и программный сброс 0xFF.</span>
+            </div>
+          </div>
+        </div>
+
       </div>
     </div>
   </section>
 
   <!-- ============================================================
-       Roadmap v4.0 -> v4.1 (The Evolution to Release v4.1)
+       Roadmap v4.0 -> v4.2 (The Evolution to Release v4.2)
        ============================================================ -->
   <section class="roadmap-section" id="roadmap">
     <div class="container">
       <div class="section-head">
-        <span class="section-tag">The Evolution &amp; v4.1</span>
-        <h2 data-i18n-ru>Дорожная карта ядра: от v4.0 к релизу v4.1</h2>
-        <h2 data-i18n-en>Core Roadmap: v4.0 Evolution to v4.1 Release</h2>
-        <p data-i18n-ru>Ключевые вехи эволюции языка GrassGreen: архитектура ядра v4.0 и масштабный релиз v4.1 с векторным GUI VD+, аудио-движком и кроссплатформенным Linux.</p>
-        <p data-i18n-en>Key evolution milestones of GrassGreen: v4.0 core architecture and major v4.1 release with VD+ GUI, !audio! engine, and Linux support.</p>
+        <span class="section-tag">The Evolution &amp; v4.2</span>
+        <h2 data-i18n-ru>Дорожная карта ядра: от v4.0 к релизу v4.2</h2>
+        <h2 data-i18n-en>Core Roadmap: v4.0 Evolution to v4.2 Release</h2>
+        <p data-i18n-ru>Ключевые вехи эволюции языка GrassGreen: архитектура ядра v4.0, векторный GUI v4.1 и суверенный Bare-Metal OS выпуск v4.2 с встроенным ассемблером !asm! и контроллером клавиатуры.</p>
+        <p data-i18n-en>Key evolution milestones of GrassGreen: v4.0 core architecture, v4.1 VD+ GUI, and sovereign v4.2 Bare-Metal OS release with inline !asm! and keyboard controller.</p>
       </div>
 
       <div class="roadmap-filter-bar">
@@ -1374,9 +1539,13 @@
           <span data-i18n-ru>Все вехи</span>
           <span data-i18n-en>All Milestones</span>
         </button>
+        <button type="button" class="roadmap-filter-btn" data-category="v42">
+          <span data-i18n-ru>Релиз v4.2 (Bare-Metal)</span>
+          <span data-i18n-en>Release v4.2 (Bare-Metal)</span>
+        </button>
         <button type="button" class="roadmap-filter-btn" data-category="v41">
-          <span data-i18n-ru>Релиз v4.1 (Новое)</span>
-          <span data-i18n-en>Release v4.1 (New)</span>
+          <span data-i18n-ru>Релиз v4.1 (GUI &amp; Audio)</span>
+          <span data-i18n-en>Release v4.1 (GUI &amp; Audio)</span>
         </button>
         <button type="button" class="roadmap-filter-btn" data-category="core">
           <span data-i18n-ru>Ядро &amp; VM</span>
@@ -1926,6 +2095,94 @@
           </div>
         </div>
 
+        <!-- 25 (v4.2) -->
+        <div class="timeline-item" data-category="v42 core">
+          <div class="timeline-dot"></div>
+          <div class="timeline-card">
+            <div class="timeline-head">
+              <div class="timeline-title-wrap">
+                <span class="timeline-num">п. 25 (v4.2)</span>
+                <h4 data-i18n-ru>Встроенный ассемблер ядра `!asm!`</h4>
+                <h4 data-i18n-en>Embedded Kernel Assembler `!asm!`</h4>
+              </div>
+              <span class="timeline-status">
+                <svg viewBox="0 0 24 24" fill="none" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+                <span>Complete</span>
+              </span>
+            </div>
+            <div class="timeline-body">
+              <p data-i18n-ru>Прямые ассемблерные вставки `asm { ... }` без NASM/GAS. Полный контроль процессора x86_64: системные регистры `CR0`–`CR4`, чтение/запись портов `in`/`out`, флаги `RFLAGS`, счетчик тактов `rdtsc()` и аппаратные прерывания `cli`/`sti`/`hlt`.</p>
+              <p data-i18n-en>Direct inline assembly `asm { ... }` without NASM/GAS. Full x86_64 control: `CR0`–`CR4` registers, I/O ports `in`/`out`, `RFLAGS`, cycle counter `rdtsc()`, and interrupts `cli`/`sti`/`hlt`.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- 26 (v4.2) -->
+        <div class="timeline-item" data-category="v42 core">
+          <div class="timeline-dot"></div>
+          <div class="timeline-card">
+            <div class="timeline-head">
+              <div class="timeline-title-wrap">
+                <span class="timeline-num">п. 26 (v4.2)</span>
+                <h4 data-i18n-ru>Драйвер контроллера клавиатуры `!keyboard!`</h4>
+                <h4 data-i18n-en>PS/2 Keyboard Controller `!keyboard!`</h4>
+              </div>
+              <span class="timeline-status">
+                <svg viewBox="0 0 24 24" fill="none" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+                <span>Complete</span>
+              </span>
+            </div>
+            <div class="timeline-body">
+              <p data-i18n-ru>Аппаратно-независимый инструментарий для взаимодействия с контроллером клавиатуры (порты 0x60, 0x64): опрос статуса, чтение скан-кодов PS/2 Set 1, проверка Shift/Caps/Ctrl и построчный ввод `kbd_read_line()` с поддержкой Backspace.</p>
+              <p data-i18n-en>Hardware-independent tools for keyboard controller (ports 0x60, 0x64): status polling, PS/2 Set 1 scancodes, Shift/Caps/Ctrl states, and buffered line input with Backspace.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- 27 (v4.2) -->
+        <div class="timeline-item" data-category="v42 compiler">
+          <div class="timeline-dot"></div>
+          <div class="timeline-card">
+            <div class="timeline-head">
+              <div class="timeline-title-wrap">
+                <span class="timeline-num">п. 27 (v4.2)</span>
+                <h4 data-i18n-ru>Сборка ядер ОС &amp; Загрузочных дисков ISO</h4>
+                <h4 data-i18n-en>OS Kernel Compilation &amp; Bootable ISO Generation</h4>
+              </div>
+              <span class="timeline-status">
+                <svg viewBox="0 0 24 24" fill="none" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+                <span>Complete</span>
+              </span>
+            </div>
+            <div class="timeline-body">
+              <p data-i18n-ru>Новые флаги компилятора: `--multiboot` (автогенерация заголовка для GRUB/QEMU), `--kernel` (чистый бинарник ядра `.bin`), `--sys` (драйверы устройств) и `--iso` (создание готового загрузочного диска El Torito No-Emulation без сторонних утилит).</p>
+              <p data-i18n-en>Dedicated OS flags: `--multiboot` (Multiboot 1/2 header for GRUB/QEMU), `--kernel` (raw kernel `.bin`), `--sys` (driver files), and `--iso` (bootable El Torito No-Emulation CD-ROM image directly from compiler).</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- 28 (v4.2) -->
+        <div class="timeline-item" data-category="v42 syntax">
+          <div class="timeline-dot"></div>
+          <div class="timeline-card">
+            <div class="timeline-head">
+              <div class="timeline-title-wrap">
+                <span class="timeline-num">п. 28 (v4.2)</span>
+                <h4 data-i18n-ru>Кодировки и кириллическая раскладка (`use utf -`)</h4>
+                <h4 data-i18n-en>Encoding &amp; Cyrillic Layout (`use utf -`)</h4>
+              </div>
+              <span class="timeline-status">
+                <svg viewBox="0 0 24 24" fill="none" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+                <span>Complete</span>
+              </span>
+            </div>
+            <div class="timeline-body">
+              <p data-i18n-ru>Возвращена директива `use utf - &lt;id&gt;;` для настройки кодировок терминала (UTF-8, Windows-1251, CP866) и раскладки клавиатуры. Аппаратная трансляция скан-кодов PS/2 в раскладку ЙЦУКЕН для работы ядра на голом железе и спецификация `docs/languages.md`.</p>
+              <p data-i18n-en>Restored `use utf - &lt;id&gt;;` directive for terminal code pages (UTF-8, CP1251, CP866) and hardware Cyrillic JCUKEN PS/2 layout translation with docs/languages.md specification.</p>
+            </div>
+          </div>
+        </div>
+
       </div>
     </div>
   </section>
@@ -1974,11 +2231,53 @@
           </div>
           <h4 data-i18n-ru>Справочник библиотек (docs/library.md)</h4>
           <h4 data-i18n-en>Library Directory (docs/library.md)</h4>
-          <p data-i18n-ru>Полный перечень всех 19 стандартных библиотек с директивами подключения `!name!` и описанием назначения каждого модуля.</p>
-          <p data-i18n-en>Complete breakdown of all 19 standard modules, import syntax directives, and capabilities.</p>
+          <p data-i18n-ru>Полный перечень всех 21 стандартных библиотек с директивами подключения `!name!` и описанием назначения каждого модуля.</p>
+          <p data-i18n-en>Complete breakdown of all 21 standard modules, import syntax directives, and capabilities.</p>
           <a href="https://github.com/m1oky/GrassGreen/blob/main/docs/library.md" target="_blank" rel="noopener noreferrer" class="doc-quick-link">
             <span data-i18n-ru>Открыть справочник</span>
             <span data-i18n-en>Open Directory</span>
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+          </a>
+        </div>
+
+        <div class="doc-quick-card">
+          <div class="doc-quick-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="4" y="4" width="16" height="16" rx="2"/>
+              <rect x="9" y="9" width="6" height="6"/>
+              <line x1="9" y1="1" x2="9" y2="4"/><line x1="15" y1="1" x2="15" y2="4"/>
+              <line x1="9" y1="20" x2="9" y2="23"/><line x1="15" y1="20" x2="15" y2="23"/>
+              <line x1="20" y1="9" x2="23" y2="9"/><line x1="20" y1="14" x2="23" y2="14"/>
+              <line x1="1" y1="9" x2="4" y2="9"/><line x1="1" y1="14" x2="4" y2="14"/>
+            </svg>
+          </div>
+          <h4 data-i18n-ru>Встроенный ассемблер (docs/asm.md)</h4>
+          <h4 data-i18n-en>Embedded Assembler (docs/asm.md)</h4>
+          <p data-i18n-ru>Прямые ассемблерные вставки `asm { ... }`, системные регистры CPU (CR0–CR4, RFLAGS), I/O порты in/out, rdtsc() и прерывания cli/sti без сторонних утилит.</p>
+          <p data-i18n-en>Inline assembly blocks `asm { ... }`, CPU control registers (CR0–CR4, RFLAGS), in/out I/O ports, rdtsc() timer, and cli/sti interrupts.</p>
+          <a href="https://github.com/m1oky/GrassGreen/blob/main/docs/asm.md" target="_blank" rel="noopener noreferrer" class="doc-quick-link">
+            <span data-i18n-ru>Открыть ассемблер</span>
+            <span data-i18n-en>Open Assembler Guide</span>
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+          </a>
+        </div>
+
+        <div class="doc-quick-card">
+          <div class="doc-quick-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="2" y="4" width="20" height="16" rx="2" ry="2"/>
+              <line x1="6" y1="8" x2="6.01" y2="8"/><line x1="10" y1="8" x2="10.01" y2="8"/><line x1="14" y1="8" x2="14.01" y2="8"/><line x1="18" y1="8" x2="18.01" y2="8"/>
+              <line x1="6" y1="12" x2="6.01" y2="12"/><line x1="18" y1="12" x2="18.01" y2="12"/>
+              <line x1="7" y1="16" x2="17" y2="16"/>
+            </svg>
+          </div>
+          <h4 data-i18n-ru>Драйвер клавиатуры PS/2 (docs/keyboard.md)</h4>
+          <h4 data-i18n-en>PS/2 Keyboard Driver (docs/keyboard.md)</h4>
+          <p data-i18n-ru>Низкоуровневый опрос портов 0x60/0x64, скан-коды клавиш, регистры Shift/Ctrl/Alt, буферизированный ввод строк kbd_read_line() и раскладка ЙЦУКЕН.</p>
+          <p data-i18n-en>Low-level hardware driver for ports 0x60/0x64, scancode polling, modifier registers, buffered kbd_read_line(), and JCUKEN Cyrillic layout.</p>
+          <a href="https://github.com/m1oky/GrassGreen/blob/main/docs/keyboard.md" target="_blank" rel="noopener noreferrer" class="doc-quick-link">
+            <span data-i18n-ru>Открыть драйвер клавиатуры</span>
+            <span data-i18n-en>Open Keyboard Driver</span>
             <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
           </a>
         </div>
@@ -2019,6 +2318,25 @@
             <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
           </a>
         </div>
+
+        <div class="doc-quick-card">
+          <div class="doc-quick-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"/>
+              <line x1="2" y1="12" x2="22" y2="12"/>
+              <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+            </svg>
+          </div>
+          <h4 data-i18n-ru>Кодировки и раскладки (docs/languages.md)</h4>
+          <h4 data-i18n-en>Codepages &amp; Layouts (docs/languages.md)</h4>
+          <p data-i18n-ru>Спецификация директивы `use utf - &lt;id&gt;`: таблица кодовых страниц UTF-8, Windows-1251, CP866 и поддержка кириллицы на голом железе.</p>
+          <p data-i18n-en>Specification of `use utf - &lt;id&gt;` directive: codepages table (UTF-8, CP1251, CP866) and hardware Cyrillic support.</p>
+          <a href="https://github.com/m1oky/GrassGreen/blob/main/docs/languages.md" target="_blank" rel="noopener noreferrer" class="doc-quick-link">
+            <span data-i18n-ru>Открыть руководство кодировок</span>
+            <span data-i18n-en>Open Codepages Guide</span>
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+          </a>
+        </div>
       </div>
     </div>
   </section>
@@ -2045,8 +2363,8 @@
             </svg>
             <span class="footer-logo-title">GrassGreen (G&amp;G)</span>
           </div>
-          <p class="footer-desc" data-i18n-ru>Высокопроизводительный байткод-язык системного уровня с синтаксисом C++, собственной виртуальной машиной Direct-Threaded VM, упаковкой в Win32 PE .exe и Linux ELF.</p>
-          <p class="footer-desc" data-i18n-en>High-performance system-level bytecode language with C++ syntax, proprietary Direct-Threaded VM, and packaging in Win32 PE .exe &amp; Linux ELF.</p>
+          <p class="footer-desc" data-i18n-ru>Высокопроизводительный байткод-язык системного уровня с синтаксисом C++, собственной виртуальной машиной Direct-Threaded VM, упаковкой в Win32 PE .exe, Linux ELF и сборкой Bare-Metal OS ISO.</p>
+          <p class="footer-desc" data-i18n-en>High-performance system-level bytecode language with C++ syntax, proprietary Direct-Threaded VM, Win32 PE .exe &amp; Linux ELF packaging, and Bare-Metal OS ISO generation.</p>
         </div>
 
         <div class="footer-col-group">
@@ -2067,11 +2385,14 @@
             <h5 data-i18n-en>Documentation</h5>
             <ul>
               <li><a href="https://github.com/m1oky/GrassGreen/blob/main/docs/main.md" target="_blank" rel="noopener noreferrer">Спецификация ядра</a></li>
-              <li><a href="https://github.com/m1oky/GrassGreen/blob/main/docs/library.md" target="_blank" rel="noopener noreferrer">Каталог библиотек (19)</a></li>
+              <li><a href="https://github.com/m1oky/GrassGreen/blob/main/docs/library.md" target="_blank" rel="noopener noreferrer">Каталог библиотек (21)</a></li>
+              <li><a href="https://github.com/m1oky/GrassGreen/blob/main/docs/asm.md" target="_blank" rel="noopener noreferrer">Ассемблер !asm!</a></li>
+              <li><a href="https://github.com/m1oky/GrassGreen/blob/main/docs/keyboard.md" target="_blank" rel="noopener noreferrer">Драйвер клавиатуры PS/2</a></li>
               <li><a href="https://github.com/m1oky/GrassGreen/blob/main/docs/interface.md" target="_blank" rel="noopener noreferrer">Векторный GUI VD+</a></li>
               <li><a href="https://github.com/m1oky/GrassGreen/blob/main/docs/audio.md" target="_blank" rel="noopener noreferrer">Аудио-движок !audio!</a></li>
-              <li><a href="https://github.com/m1oky/GrassGreen/blob/main/plans/ROADMAP.md" target="_blank" rel="noopener noreferrer">Роадмап v4.1</a></li>
               <li><a href="https://github.com/m1oky/GrassGreen/blob/main/docs/mmio.md" target="_blank" rel="noopener noreferrer">Аппаратный доступ MMIO</a></li>
+              <li><a href="https://github.com/m1oky/GrassGreen/blob/main/docs/languages.md" target="_blank" rel="noopener noreferrer">Кодировки use utf -</a></li>
+              <li><a href="https://github.com/m1oky/GrassGreen/blob/main/plans/ROADMAP.md" target="_blank" rel="noopener noreferrer">Роадмап v4.2</a></li>
             </ul>
           </div>
         </div>
@@ -2081,7 +2402,7 @@
         <div>&copy; 2026 GrassGreen Project. Разработчик: m1oky</div>
         <div class="footer-meta">
           <span>License: MIT</span>
-          <span>Release: v4.1</span>
+          <span>Release: v4.2</span>
         </div>
       </div>
     </div>
